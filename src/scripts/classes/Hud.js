@@ -31,12 +31,13 @@ export default class Hud {
             this.gold.setText(`${this.scene.player.gold}`);
             this.silver.setText(`${this.scene.player.silver}`);
             let scale = GameConfig.DEFAULT_MAX_SCALE;
-            if (this.scene.player.torchCount <= GameConfig.MAX_TORCH) {
-                scale = GameConfig.DEFAULT_SCALE * (this.scene.player.torchCount / GameConfig.MAX_TORCH)
+            if (this.scene.player.torchCount < GameConfig.MAX_TORCH) {
+                scale = GameConfig.DEFAULT_MAX_SCALE * (this.scene.player.torchCount / GameConfig.MAX_TORCH)
             }
             if (this.scene.player.torchCount === 0) {
                 scale = GameConfig.DEFAULT_MIN_SCALE;
             }
+            console.log(scale);
             this.fog.setScale(scale);
         }
     }

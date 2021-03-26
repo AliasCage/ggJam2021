@@ -11,6 +11,9 @@ import arrowPng from "../../assets/arrow.png";
 import barPng from "../../assets/bar.png";
 import barJson from "../../assets/bar.json";
 
+import boomPng from "../../assets/booom.png";
+import boomJson from "../../assets/booom.json";
+
 export default class PreloadScene extends Phaser.Scene {
     constructor() {
         super('Preload');
@@ -23,6 +26,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('fog', fogPng);
 
         this.load.atlas('bar', barPng, barJson);
+        this.load.atlas('boom', boomPng, boomJson);
         this.load.spritesheet('arrow', arrowPng, {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('blocksSet', blocksPng, {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('resSet', resSet, {frameWidth: 100, frameHeight: 100});

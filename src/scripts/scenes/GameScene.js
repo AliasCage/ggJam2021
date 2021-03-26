@@ -39,6 +39,29 @@ export default class GameScene extends Phaser.Scene {
         this.cameras.main.startFollow(this.player.hero);
     }
 
+    makeBoom(x, y) {
+        let boom = this.add.sprite(x, y, 'boom', 'b1').setDepth(5);
+        // Сгенерировать набор фреймов текстуры, необходимых для анимации
+        const frames = this.anims.generateFrameNames('boom', {
+            prefix: 'b',
+            start: 1,
+            end: 8
+        });
+
+        // Создать новую анимацию на основе полученного набора фреймов
+        this.anims.create({
+            key: 'boom',
+            frames,
+            frameRate: 8,
+            repeat: 0
+        });
+
+        // Запустить анимацию
+        boom.play('boom').once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
+            boom.destroy();
+        });
+    }
+
     create() {
         this.config = this.game.config;
         this.exitExist = false;
@@ -46,7 +69,6 @@ export default class GameScene extends Phaser.Scene {
         this.map = new Map(this);
         this.hud = new Hud(this);
         this.player = new Player(this);
-
         this.cameraFollow();
 
         this.canPick = true;
@@ -65,6 +87,8 @@ export default class GameScene extends Phaser.Scene {
         this.input.on("pointerdown", this.gemSelect, this);
         this.input.on("pointermove", this.drawPath, this);
         this.input.on("pointerup", this.removeGems, this);
+
+
     }
 
     drawField() {
@@ -173,6 +197,7 @@ export default class GameScene extends Phaser.Scene {
             var item = this.draw3.customDataOf(playerMovement.to.row, playerMovement.to.column);
             this.player.collect(item.frame.name);
             player.alpha = 1;
+            this.makeBoom(player.x, player.y);
             this.tweens.add({
                 targets: player,
                 x: player.x + (playerMovement.from.column - playerMovement.to.column) * gameOptions.gemSize,
