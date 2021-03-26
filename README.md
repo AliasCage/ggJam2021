@@ -1,1 +1,1 @@
-# ggJam2021
+# GearGames game Jam 2021
