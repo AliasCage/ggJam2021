@@ -1,5 +1,6 @@
 import * as GameConfig from '../classes/GameConfig';
 import ChestPopup from "../classes/ChestPopup";
+import GameOverPopup from "../classes/GameOverPopup";
 
 export default class Player {
     constructor(scene) {
@@ -29,7 +30,17 @@ export default class Player {
 
     move() {
         this.foods--;
+        if (this.foods <= 0) {
+            new GameOverPopup(this.scene, "Вы умерли от голода...")
+            this.hero.input.enable = false;
+            return;
+        }
         this.torchCount--;
+        if (this.torchCount <= GameConfig.MIN_TORCH_COUNT_TO_DIE) {
+            new GameOverPopup(this.scene, "Вы потерялись в темноте...")
+            this.hero.input.enable = false;
+            return;
+        }
         this.scene.hud.render();
     }
 
