@@ -1,11 +1,9 @@
+import * as GameConfig from '../classes/GameConfig';
+
 const RIGHT = 1;
 const DOWN = 2;
 const LEFT = 4;
 const UP = 8;
-const GRIB_DROP_PERCENT = 0.1;
-const GRIB_ID = 4;
-const CHEST_DROP_PERCENT = 0.1;
-const CHEST_ID = 5;
 
 export default class Draw3P {
 
@@ -72,13 +70,13 @@ export default class Draw3P {
         } else if (randomValue === 3) {
             randomValue = 0;
         }
-        if (randomValue === GRIB_ID) {
-            if (Math.random() > GRIB_DROP_PERCENT) {
+        if (randomValue === GameConfig.GRIB_ID) {
+            if (Math.random() > GameConfig.GRIB_DROP_PERCENT) {
                 randomValue = 0;
             }
         }
-        if (randomValue === CHEST_ID) {
-            if (Math.random() > CHEST_DROP_PERCENT) {
+        if (randomValue === GameConfig.CHEST_ID) {
+            if (Math.random() > GameConfig.CHEST_DROP_PERCENT) {
                 randomValue = 2;
             }
         }
@@ -142,9 +140,9 @@ export default class Draw3P {
         if (this.getChainLength() > 1) {
             lastId = this.getChainValue();
         }
-        let isGrib = this.gameArray[row][column].value === GRIB_ID;
+        let isGrib = this.gameArray[row][column].value === GameConfig.GRIB_ID;
         if (lastId) {
-            isGrib = isGrib || lastId === GRIB_ID;
+            isGrib = isGrib || lastId === GameConfig.GRIB_ID;
         }
         console.log(isGrib);
         return (isGrib || this.getChainLength() < 2 || this.getChainValue() == this.valueAt(row, column)) && !this.isInChain(row, column) && this.areNext(row, column, this.getLastChainItem().row, this.getLastChainItem().column);
@@ -280,7 +278,7 @@ export default class Draw3P {
 
     // returns true if two items at (row, column) and (row2, column2) are next to each other horizontally, vertically or diagonally
     areNext(row, column, row2, column2) {
-        let isGrib = this.gameArray[row][column].value === GRIB_ID || this.gameArray[row2][column2].value === GRIB_ID;
+        let isGrib = this.gameArray[row][column].value === GameConfig.GRIB_ID || this.gameArray[row2][column2].value === GameConfig.GRIB_ID;
         return (Math.abs(row - row2) + Math.abs(column - column2) == 1) || (Math.abs(row - row2) == 1 && Math.abs(column - column2) == 1) || isGrib;
     }
 

@@ -1,5 +1,5 @@
-const MAX_TORCH = 18;
-const DEFAULT_SCALE = 4;
+import * as GameConfig from '../classes/GameConfig';
+
 export default class Hud {
     constructor(scene) {
         this.scene = scene;
@@ -21,7 +21,7 @@ export default class Hud {
         this.gold = this.scene.add.text(510, 50, "Gold: ", style).setScrollFactor(0).setDepth(4).setOrigin(0.5);
 
         this.bar = this.scene.add.sprite(670, 50, 'bar', 'menu').setScrollFactor(0).setOrigin(0.5).setDepth(5).setScale(0.1);
-        this.fog = this.scene.add.sprite(this.config.widthMiddle, this.config.widthMiddle, 'fog').setOrigin(0.5).setDepth(3).setScale(DEFAULT_SCALE);
+        this.fog = this.scene.add.sprite(this.config.widthMiddle, this.config.widthMiddle, 'fog').setOrigin(0.5).setDepth(3).setScale(GameConfig.DEFAULT_SCALE);
     }
 
     render() {
@@ -30,9 +30,9 @@ export default class Hud {
             this.torch.setText(`Torch: ${this.scene.player.torchCount}`);
             this.gold.setText(`${this.scene.player.gold}`);
             this.silver.setText(`${this.scene.player.silver}`);
-            let scale = DEFAULT_SCALE;
-            if (this.scene.player.torchCount >= MAX_TORCH) {
-                scale = DEFAULT_SCALE * (this.scene.player.torchCount / MAX_TORCH)
+            let scale = GameConfig.DEFAULT_SCALE;
+            if (this.scene.player.torchCount >= GameConfig.MAX_TORCH) {
+                scale = GameConfig.DEFAULT_SCALE * (this.scene.player.torchCount / GameConfig.MAX_TORCH)
             }
             this.fog.setScale(scale);
         }

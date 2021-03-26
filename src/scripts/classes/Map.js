@@ -1,10 +1,3 @@
-const GRASS_FRICTION = 0.3;
-const ROADS_FRICTION = {
-    road: 1,
-    ground: 0.5,
-    sand: 0.4
-};
-
 export default class Map {
     constructor(scene) {
         this.scene = scene;
