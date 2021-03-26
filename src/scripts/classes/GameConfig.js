@@ -19,7 +19,8 @@ export const CHEST_TORCH_PERCENT = 0.5;
 
 //hud
 export const MAX_TORCH = 18;
-export const DEFAULT_SCALE = 4;
+export const DEFAULT_MIN_SCALE = 1;
+export const DEFAULT_MAX_SCALE = 4;
 
 //draw3p
 export const GRIB_DROP_PERCENT = 0.1;

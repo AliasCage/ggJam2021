@@ -35,11 +35,8 @@ export default class Player {
             this.hero.input.enable = false;
             return;
         }
-        this.torchCount--;
-        if (this.torchCount <= GameConfig.MIN_TORCH_COUNT_TO_DIE) {
-            new GameOverPopup(this.scene, "Вы потерялись в темноте...")
-            this.hero.input.enable = false;
-            return;
+        if (this.torchCount > 0) {
+            this.torchCount--;
         }
         this.scene.hud.render();
     }

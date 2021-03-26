@@ -147,7 +147,7 @@ export default class GameScene extends Phaser.Scene {
             this.hidePath();
             this.dragging = false;
             let id = -1;
-            if (this.draw3.getChainLength() > 1) {
+            if (this.draw3.getChainLength() > 0) {
                 id = this.draw3.getChainValue();
             }
             if (this.draw3.getChainLength() < 3 && (!this.nonRowedCell(id))) {
