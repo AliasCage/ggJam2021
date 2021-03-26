@@ -1,16 +1,15 @@
 import * as GameConfig from '../classes/GameConfig';
+import ChestPopup from "../classes/ChestPopup";
 
 export default class Player {
     constructor(scene) {
         this.scene = scene;
         this.gameConfig = scene.gameConfig;
-        debugger
 
         this.hero = this.scene.add.sprite(0, 0, 'hero');
         this.hero.setInteractive();
         this.hero.setOrigin(0.5);
         this.foods = GameConfig.FOOD;
-        debugger
         this.torchCount = GameConfig.TORCH;
         this.gold = 0;
         this.silver = 0;
@@ -34,6 +33,13 @@ export default class Player {
         this.scene.hud.render();
     }
 
+    useChest(chest) {
+        this.foods += chest.food ? chest.food : 0;
+        this.gold += chest.gold ? chest.gold : 0;
+        this.silver += chest.silver ? chest.silver : 0;
+        this.torchCount += chest.torchCount ? chest.torchCount : 0;
+    }
+
     collect(itemId) {
         if (itemId === 2) {
             this.gold++;
@@ -45,18 +51,22 @@ export default class Player {
             this.foods++;
         }
         if (itemId === 5) {
+            var chest = {};
             if (Math.random() < GameConfig.CHEST_FOOD_PERCENT) {
-                this.foods += Math.floor(Math.random() * GameConfig.CHEST_MAX_FOOD) + GameConfig.CHEST_MIN_FOOD;
+                chest.food = Math.floor(Math.random() * GameConfig.CHEST_MAX_FOOD) + GameConfig.CHEST_MIN_FOOD;
             }
             if (Math.random() < GameConfig.CHEST_GOLD_PERCENT0) {
-                this.gold += Math.floor(Math.random() * GameConfig.CHEST_MAX_GOLD) + GameConfig.CHEST_MIN_GOLD;
+                chest.gold = Math.floor(Math.random() * GameConfig.CHEST_MAX_GOLD) + GameConfig.CHEST_MIN_GOLD;
             }
             if (Math.random() < GameConfig.CHEST_SILVER_PERCENT) {
-                this.silver += Math.floor(Math.random() * GameConfig.CHEST_MAX_SILVER) + GameConfig.CHEST_MIN_SILVER;
+                chest.silver = Math.floor(Math.random() * GameConfig.CHEST_MAX_SILVER) + GameConfig.CHEST_MIN_SILVER;
             }
             if (Math.random() < GameConfig.CHEST_TORCH_PERCENT) {
-                this.torchCount += Math.floor(Math.random() * GameConfig.CHEST_MAX_TORCH) + GameConfig.CHEST_MIN_TORCH;
+                chest.torchCount = Math.floor(Math.random() * GameConfig.CHEST_MAX_TORCH) + GameConfig.CHEST_MIN_TORCH;
             }
+            new ChestPopup(this.scene, chest, () => {
+                this.useChest(chest)
+            });
         }
     }
 }

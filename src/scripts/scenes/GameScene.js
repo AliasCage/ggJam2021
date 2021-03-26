@@ -3,7 +3,6 @@ import Map from '../classes/Map';
 import Draw3P from '../classes/Draw3P';
 import Player from '../classes/Player';
 import Hud from '../classes/Hud';
-import GameConfig from '../classes/GameConfig';
 
 const ITEMS_COUNT = 6;
 
@@ -42,7 +41,6 @@ export default class GameScene extends Phaser.Scene {
 
     create() {
         this.config = this.game.config;
-        this.gameConfig = new GameConfig();
         this.exitExist = false;
 
         this.map = new Map(this);
@@ -138,14 +136,6 @@ export default class GameScene extends Phaser.Scene {
                 }
             }
         }
-    }
-
-    isExitCell(id) {
-        return id === 3;
-    }
-
-    isGribCell(id) {
-        return id === 4;
     }
 
     nonRowedCell(id) {

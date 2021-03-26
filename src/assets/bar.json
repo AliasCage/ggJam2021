@@ -33,7 +33,7 @@
 	"sourceSize": {"w":512,"h":512}
 },
 {
-	"filename": "torh",
+	"filename": "torch",
 	"frame": {"x":0,"y":1024,"w":512,"h":512},
 	"rotated": false,
 	"trimmed": false,
