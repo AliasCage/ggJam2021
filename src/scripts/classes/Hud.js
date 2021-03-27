@@ -21,7 +21,7 @@ export default class Hud {
         this.gold = this.scene.add.text(510, 50, "Gold: ", style).setScrollFactor(0).setDepth(4).setOrigin(0.5);
 
         this.bar = this.scene.add.sprite(670, 50, 'bar', 'menu').setScrollFactor(0).setOrigin(0.5).setDepth(5).setScale(0.1);
-        this.fog = this.scene.add.sprite(this.config.widthMiddle, this.config.widthMiddle, 'fog').setOrigin(0.5).setDepth(3).setScale(GameConfig.DEFAULT_SCALE);
+        this.fog = this.scene.add.sprite(this.config.widthMiddle, this.config.widthMiddle, 'fog').setOrigin(0.5).setDepth(3).setScale(GameConfig.DEFAULT_MAX_SCALE);
     }
 
     render() {
@@ -37,7 +37,6 @@ export default class Hud {
             if (this.scene.player.torchCount === 0) {
                 scale = GameConfig.DEFAULT_MIN_SCALE;
             }
-            console.log(scale);
             this.fog.setScale(scale);
         }
     }

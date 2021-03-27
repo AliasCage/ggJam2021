@@ -17,7 +17,6 @@ export default class StartScene extends Phaser.Scene {
     }
 
     createButtons() {
-        console.log(this);
         this.button1 = this.add.text(this.cameras.main.centerX,
             this.config.height * 0.7,
             'Копать',

@@ -4,7 +4,6 @@ import undergroundJson from '../../assets/underground.json';
 import blocksPng from '../../assets/blocks.png';
 import resSet from '../../assets/resources.png';
 import hero from '../../assets/hero.png';
-import bgPng from "../../assets/bg.png";
 import fogPng from "../../assets/fog.png";
 import arrowPng from "../../assets/arrow.png";
 

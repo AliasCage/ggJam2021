@@ -144,7 +144,6 @@ export default class Draw3P {
         if (lastId) {
             isGrib = isGrib || lastId === GameConfig.GRIB_ID;
         }
-        console.log(isGrib);
         return (isGrib || this.getChainLength() < 2 || this.getChainValue() == this.valueAt(row, column)) && !this.isInChain(row, column) && this.areNext(row, column, this.getLastChainItem().row, this.getLastChainItem().column);
     }
 
@@ -334,8 +333,12 @@ export default class Draw3P {
         let result = []
         for (let i = this.getRows() - 2; i >= 0; i--) {
             for (let j = 0; j < this.getColumns(); j++) {
-                if (!this.isPlayerAt(i, j)) {
+                let value = this.valueAt(i, j);
+                let isChest = value !== undefined && value === 4;
+
+                if (!this.isPlayerAt(i, j) ) {
                     let emptySpaces = this.emptySpacesBelow(i, j);
+
                     if (j == this.getPlayerColumn() && i < this.getPlayerRow()) {
                         emptySpaces++;
                         if (i + emptySpaces <= this.getPlayerRow()) {

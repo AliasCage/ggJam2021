@@ -15,7 +15,6 @@ export default class Map {
     }
 
     createLayers() {
-        console.log(this.tilemap)
         this.tilemap.createStaticLayer('ground', this.tileset);
         this.tilemap.createStaticLayer('blocks', this.tileset);
     }
