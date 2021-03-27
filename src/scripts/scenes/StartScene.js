@@ -14,19 +14,22 @@ export default class StartScene extends Phaser.Scene {
 
     createBackground() {
         this.add.sprite(0, 0, 'bg').setOrigin(0);
+        this.sky = this.add.tileSprite(720, 600, 720, 230, 'sky').setOrigin(1);
+    }
+
+    update() {
+        this.sky.tilePositionX += 0.3;
     }
 
     createButtons() {
-        this.button1 = this.add.text(this.cameras.main.centerX,
-            this.config.height * 0.7,
-            'Копать',
-            {font: 'bold 88px Arial', fill: '#FAFAD2'})
+        this.button = this.add.sprite(this.cameras.main.centerX,
+            this.config.height * 0.85, 'start')
             .setOrigin(0.5)
             .setInteractive();
     }
 
     setEvents() {
-        this.button1.on('pointerdown', this.startGame, this);
+        this.button.on('pointerdown', this.startGame, this);
     }
 
     startGame() {

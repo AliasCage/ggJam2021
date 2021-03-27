@@ -12,6 +12,8 @@ import barJson from "../../assets/bar.json";
 
 import boomPng from "../../assets/booom.png";
 import boomJson from "../../assets/booom.json";
+import startPng from "../../assets/start.png";
+import skyPng from "../../assets/skies.png";
 
 export default class PreloadScene extends Phaser.Scene {
     constructor() {
@@ -23,6 +25,8 @@ export default class PreloadScene extends Phaser.Scene {
         this.loadingBar = new LoadingBar(this);
         this.load.image('hero', hero);
         this.load.image('fog', fogPng);
+        this.load.image('start', startPng);
+        this.load.image('sky', skyPng);
 
         this.load.atlas('bar', barPng, barJson);
         this.load.atlas('boom', boomPng, boomJson);
@@ -30,6 +34,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.spritesheet('blocksSet', blocksPng, {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('resSet', resSet, {frameWidth: 100, frameHeight: 100});
         this.load.tilemapTiledJSON('undergroundJson', undergroundJson);
+        // this.load.audio('mining', miningWav);
     }
 
     create() {

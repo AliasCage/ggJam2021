@@ -89,6 +89,12 @@ export default class GameScene extends Phaser.Scene {
         this.input.on("pointermove", this.drawPath, this);
         this.input.on("pointerup", this.removeGems, this);
 
+        // this.sounds = {
+        //     mining: this.sound.add('mining', {volume: 0.1}),
+            // theme: this.sound.add('theme', {volume: 0.2, loop: true})
+        // };
+
+        // this.sounds.theme.play();
 
     }
 
@@ -142,6 +148,7 @@ export default class GameScene extends Phaser.Scene {
             let row = Math.floor((pointer.worldY - gameOptions.boardOffset.y) / gameOptions.gemSize);
             let col = Math.floor((pointer.worldX - gameOptions.boardOffset.x) / gameOptions.gemSize);
             // var nonBlocked = this.map.checkIsNonBlocked(row, col);
+
             if (this.draw3.validPick(row, col)) {
                 let distance = Phaser.Math.Distance.Between(pointer.worldX, pointer.worldY, this.draw3.customDataOf(row, col).x, this.draw3.customDataOf(row, col).y);
                 if (distance < gameOptions.gemSize * 0.4) {
@@ -197,6 +204,7 @@ export default class GameScene extends Phaser.Scene {
             let player = this.draw3.customDataOf(playerMovement.from.row, playerMovement.from.column);
             var item = this.draw3.customDataOf(playerMovement.to.row, playerMovement.to.column);
             this.player.collect(item.frame.name);
+            // this.sounds.mining.play();
             player.alpha = 1;
             this.makeBoom(player.x, player.y);
             this.tweens.add({
