@@ -32,6 +32,8 @@ export default class Player {
         console.log("move")
         this.foods--;
         if (this.foods <= 0) {
+            this.scene.sounds.gameOver.play();
+            this.scene.sounds.theme.stop();
             new GameOverPopup(this.scene, "Вы умерли от голода...")
             this.hero.input.enable = false;
             return;
@@ -50,17 +52,24 @@ export default class Player {
     }
 
     collect(itemId) {
-        console.log('collect');
+        console.log('collect ' + itemId);
+        if (itemId === 0) {
+            this.scene.sounds.dig.play();
+        }
         if (itemId === 2) {
             this.gold++;
+            this.scene.sounds.mine.play();
         }
         if (itemId === 1) {
+            this.scene.sounds.mine.play();
             this.silver++;
         }
         if (itemId === 4) {
             this.foods++;
+            this.scene.sounds.food.play();
         }
         if (itemId === 5) {
+            this.scene.sounds.chest.play();
             var chest = {};
             if (Math.random() < GameConfig.CHEST_FOOD_PERCENT) {
                 chest.food = Math.floor(Math.random() * GameConfig.CHEST_MAX_FOOD) + GameConfig.CHEST_MIN_FOOD;

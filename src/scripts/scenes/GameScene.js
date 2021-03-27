@@ -90,13 +90,18 @@ export default class GameScene extends Phaser.Scene {
         this.input.on("pointermove", this.drawPath, this);
         this.input.on("pointerup", this.removeGems, this);
 
-        // this.sounds = {
-        //     mining: this.sound.add('mining', {volume: 0.1}),
-        // theme: this.sound.add('theme', {volume: 0.2, loop: true})
-        // };
-
-        // this.sounds.theme.play();
-
+        if (this.sounds === undefined) {
+            this.sounds = {
+                chest: this.sound.add('chest', {volume: GameConfig.VOLUME_CHEST}),
+                dig: this.sound.add('dig', {volume: GameConfig.VOLUME_DIG}),
+                gameOver: this.sound.add('gameOver', {volume: GameConfig.VOLUME_GAME_OVER}),
+                mine: this.sound.add('mine', {volume: GameConfig.VOLUME_MINE}),
+                food: this.sound.add('food', {volume: GameConfig.VOLUME_FOOD}),
+                rockFall: this.sound.add('rockFall', {volume: GameConfig.VOLUME_ROCK_FALL}),
+                theme: this.sound.add('theme', {volume: GameConfig.VOLUME_MAIN_THEME, loop: true})
+            };
+        }
+        this.sounds.theme.play();
     }
 
     drawField() {
@@ -207,11 +212,12 @@ export default class GameScene extends Phaser.Scene {
             this.player.collect(item.frame.name);
             // this.sounds.mining.play();
             player.alpha = 1;
-            this.makeBoom(player.x, player.y);
+            let posX = player.x + (playerMovement.from.column - playerMovement.to.column) * gameOptions.gemSize;
+            let posY = player.y + (playerMovement.from.row - playerMovement.to.row) * gameOptions.gemSize;
             this.tweens.add({
                 targets: player,
-                x: player.x + (playerMovement.from.column - playerMovement.to.column) * gameOptions.gemSize,
-                y: player.y + (playerMovement.from.row - playerMovement.to.row) * gameOptions.gemSize,
+                x: posX,
+                y: posY,
                 duration: gameOptions.moveSpeed,
                 callbackScope: this,
                 onComplete: function () {
@@ -232,7 +238,6 @@ export default class GameScene extends Phaser.Scene {
         replenishMovements.forEach(function (movement) {
             moved++;
             let sprite = this.poolArray.pop();
-            console.log(sprite);
             if (sprite) {
                 sprite.alpha = 1;
                 sprite.y = gameOptions.gemSize * movement.row + gameOptions.gemSize / 2;
@@ -247,6 +252,8 @@ export default class GameScene extends Phaser.Scene {
                     duration: GameConfig.DROP_BLOCK_SPEED * movement.deltaRow,
                     callbackScope: this,
                     onComplete: function () {
+                        this.sounds.rockFall.play();
+                        this.makeBoom(sprite.x, sprite.y);
                         moved--;
                         if (moved == 0) {
                             this.canPick = true;

@@ -11,6 +11,11 @@ export default class StartScene extends Phaser.Scene {
         this.createBackground();
         this.createButtons();
         this.setEvents();
+
+        if (this.wind === undefined) {
+            this.wind = this.sound.add('wind', {volume: GameConfig.VOLUME_WIND, loop: true});
+        }
+        this.wind.play();
     }
 
     createBackground() {
@@ -53,6 +58,7 @@ export default class StartScene extends Phaser.Scene {
             duration: speed,
             callbackScope: this,
             onComplete: function () {
+                this.wind.stop();
                 this.scene.start('Game', {client: this.client});
             }
         })

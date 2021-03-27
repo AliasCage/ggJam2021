@@ -15,6 +15,15 @@ import boomJson from "../../assets/booom.json";
 import startPng from "../../assets/start.png";
 import skyPng from "../../assets/skies.png";
 
+import chestSound from "../../assets/sounds/chest.mp3";
+import digSound from "../../assets/sounds/Dig.mp3";
+import gameOverSound from "../../assets/sounds/GAMEOVER.mp3";
+import mineSound from "../../assets/sounds/Mine.mp3";
+import foodSound from "../../assets/sounds/Mushroom.mp3";
+import themeSound from "../../assets/sounds/Music.mp3";
+import rockFallSound from "../../assets/sounds/RockFall.mp3";
+import windSound from "../../assets/sounds/wind.mp3";
+
 export default class PreloadScene extends Phaser.Scene {
     constructor() {
         super('Preload');
@@ -34,7 +43,15 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.spritesheet('blocksSet', blocksPng, {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('resSet', resSet, {frameWidth: 100, frameHeight: 100});
         this.load.tilemapTiledJSON('undergroundJson', undergroundJson);
-        // this.load.audio('mining', miningWav);
+
+        this.load.audio('chest', chestSound);
+        this.load.audio('dig', digSound);
+        this.load.audio('gameOver', gameOverSound);
+        this.load.audio('mine', mineSound);
+        this.load.audio('food', foodSound);
+        this.load.audio('theme', themeSound);
+        this.load.audio('rockFall', rockFallSound);
+        this.load.audio('wind', windSound);
     }
 
     create() {

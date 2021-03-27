@@ -1,3 +1,12 @@
+//sounds
+export const VOLUME_MAIN_THEME = 0.2;
+export const VOLUME_ROCK_FALL = 0.4;
+export const VOLUME_FOOD = 0.4;
+export const VOLUME_MINE = 0.4;
+export const VOLUME_GAME_OVER = 0.6;
+export const VOLUME_DIG = 0.4;
+export const VOLUME_CHEST = 0.4;
+export const VOLUME_WIND = 0.3;
 
 //player
 export const FOOD = 10; //грок стартует с этим
