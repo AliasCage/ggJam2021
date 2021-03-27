@@ -105,9 +105,10 @@ export default class GameScene extends Phaser.Scene {
             };
         }
         this.sounds.theme.play();
-        this.d1 = this.add.sprite(360, 1100, 'dialog1').setScrollFactor(0).setOrigin(0.5).setDepth(9);
-        this.d2 = this.add.sprite(360, 1100, 'dialog2').setScrollFactor(0).setOrigin(0.5).setDepth(8);
-        this.d3 = this.add.sprite(360, 1100, 'dialog4').setScrollFactor(0).setOrigin(0.5).setDepth(7);
+        this.d1 = this.add.sprite(360, 1100, 'dialog1').setScrollFactor(0).setOrigin(0.5).setDepth(10);
+        this.d2 = this.add.sprite(360, 1100, 'dialog2').setScrollFactor(0).setOrigin(0.5).setDepth(9);
+        this.d3 = this.add.sprite(360, 1100, 'dialog4').setScrollFactor(0).setOrigin(0.5).setDepth(8);
+        this.d4 = this.add.sprite(360, 1100, 'dialog5').setScrollFactor(0).setOrigin(0.5).setDepth(7).setVisible(false);
         this.frame = 0;
 
         this.input.on('pointerdown', () => {
@@ -119,6 +120,10 @@ export default class GameScene extends Phaser.Scene {
             }
             if (this.frame > 2) {
                 this.d3.setVisible(false);
+                this.d4.setVisible(true);
+            }
+            if (this.frame > 3) {
+                this.d4.setVisible(false);
             }
             this.frame++;
         });

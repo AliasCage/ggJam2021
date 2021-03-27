@@ -63,14 +63,10 @@ export default class Player {
         if (this.torchCount > 0) {
             this.torchCount--;
         }
-        let distance = Phaser.Math.Distance.Between(this.hero.x, this.hero.y, this.scene.draw3.exitColl * 100, this.scene.draw3.exitRow * 100);
-        if (distance < 500){
-            // showDialog();
-        }
+        // let distance = Phaser.Math.Distance.Between(this.hero.x, this.hero.y, this.scene.draw3.exitColl * 100, this.scene.draw3.exitRow * 100);
+        // if (distance < 500){
+        // }
         this.scene.hud.render();
-    }
-    showDialog(){
-
     }
 
     useChest(chest) {
