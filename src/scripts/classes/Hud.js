@@ -50,7 +50,7 @@ export default class Hud {
             if (this.scene.player.torchCount < GameConfig.MAX_TORCH) {
                 scale = GameConfig.DEFAULT_MAX_SCALE * (this.scene.player.torchCount / GameConfig.MAX_TORCH)
             }
-            if (this.scene.player.torchCount === 0) {
+            if (this.scene.player.torchCount <= 0) {
                 scale = GameConfig.DEFAULT_MIN_SCALE;
             }
             this.fog.setScale(scale);

@@ -9,8 +9,8 @@ export const VOLUME_CHEST = 0.4;
 export const VOLUME_WIND = 0.3;
 
 //player
-export const FOOD = 101; //грок стартует с этим
-export const TORCH = 181;
+export const FOOD = 10; //грок стартует с этим
+export const TORCH = 18;
 export const START_COL = 2;
 export const START_ROW = 3;
 export const MIN_TORCH_COUNT_TO_DIE = 5;

@@ -41,6 +41,7 @@ export default class ChestPopup {
             .setScrollFactor(0);
 
         this.scene.input.once('pointerdown', () => {
+            this.scene.sounds.gameOver.stop();
             this.scene.scene.start('Start');
         });
     }

@@ -199,7 +199,7 @@ export default class GameScene extends Phaser.Scene {
             } else {
                 this.playerStep();
                 this.player.move();
-                if (this.nonRowedCell(id)) {
+                if (3 === id) {
                     this.player.hero.emit('exit');
                 }
             }
