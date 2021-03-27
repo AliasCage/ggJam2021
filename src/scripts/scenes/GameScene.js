@@ -24,7 +24,8 @@ export default class GameScene extends Phaser.Scene {
     }
 
     init(data) {
-
+        this.playerStats = data.playerStats;
+        console.log(data)
     }
 
     preload() {
@@ -69,7 +70,8 @@ export default class GameScene extends Phaser.Scene {
 
         this.map = new Map(this);
         this.hud = new Hud(this);
-        this.player = new Player(this);
+        this.player = new Player(this, this.playerStats);
+
         this.cameraFollow();
 
         this.canPick = true;

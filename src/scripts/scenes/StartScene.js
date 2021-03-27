@@ -59,7 +59,7 @@ export default class StartScene extends Phaser.Scene {
             callbackScope: this,
             onComplete: function () {
                 this.wind.stop();
-                this.scene.start('Game', {client: this.client});
+                this.scene.start('Game', {isNewGame: true});
             }
         })
     }

@@ -1,7 +1,8 @@
 export default class ChestPopup {
-    constructor(scene, chest, onComplete) {
+    constructor(scene, chest, label, onComplete) {
         this.scene = scene;
         this.chest = chest;
+        this.label = label;
         this.onComplete = onComplete;
         this.create();
     }
@@ -19,7 +20,7 @@ export default class ChestPopup {
 
         this.title = this.scene.add.text(this.scene.cameras.main.centerX,
             this.scene.cameras.main.centerY - 110,
-            `Найден сундук!`,
+            this.label,
             {font: '46px Arial', fill: '#FAFAD2'})
             .setOrigin(0.5)
             .setDepth(6)

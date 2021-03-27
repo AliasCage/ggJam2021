@@ -3,20 +3,29 @@ import ChestPopup from "../classes/ChestPopup";
 import GameOverPopup from "../classes/GameOverPopup";
 
 export default class Player {
-    constructor(scene) {
+    constructor(scene, stats) {
         this.scene = scene;
         this.gameConfig = scene.gameConfig;
 
         this.hero = this.scene.add.sprite(0, 0, 'hero');
         this.hero.setInteractive();
         this.hero.setOrigin(0.5);
-        this.foods = GameConfig.FOOD;
-        this.torchCount = GameConfig.TORCH;
-        this.gold = 0;
-        this.silver = 0;
+        if (stats === undefined) {
+            this.foods = GameConfig.FOOD;
+            this.torchCount = GameConfig.TORCH;
+            this.gold = 0;
+            this.silver = 0;
+            this.level = 1;
+        } else {
+            this.foods = stats.food;
+            this.torchCount = stats.torchCount;
+            this.gold = stats.gold;
+            this.silver = stats.silver;
+            this.level = stats.level;
+        }
 
         this.hero.on('move', this.move, this);
-        this.hero.on('exit', this.move, this);
+        this.hero.on('exit', this.exit, this);
     }
 
     setPos(posX, posY) {
@@ -25,6 +34,18 @@ export default class Player {
     }
 
     exit() {
+        this.level += 1;
+        this.hero.input.enable = false;
+        let stats = {
+            food: this.foods,
+            gold: this.gold,
+            silver: this.silver,
+            torchCount: this.torchCount,
+            level: this.level
+        };
+        new ChestPopup(this.scene, stats, `Пройдено! Вы добыли`, () => {
+            this.scene.scene.start('Game', {playerStats: stats});
+        });
         console.log("exit")
     }
 
@@ -83,7 +104,7 @@ export default class Player {
             if (Math.random() < GameConfig.CHEST_TORCH_PERCENT) {
                 chest.torchCount = Math.floor(Math.random() * GameConfig.CHEST_MAX_TORCH) + GameConfig.CHEST_MIN_TORCH;
             }
-            new ChestPopup(this.scene, chest, () => {
+            new ChestPopup(this.scene, chest, `Найден сундук!`, () => {
                 this.useChest(chest)
             });
         }
