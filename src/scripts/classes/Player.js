@@ -29,6 +29,7 @@ export default class Player {
     }
 
     move() {
+        console.log("move")
         this.foods--;
         if (this.foods <= 0) {
             new GameOverPopup(this.scene, "Вы умерли от голода...")
@@ -49,6 +50,7 @@ export default class Player {
     }
 
     collect(itemId) {
+        console.log('collect');
         if (itemId === 2) {
             this.gold++;
         }

@@ -13,7 +13,7 @@ export default class StartScene extends Phaser.Scene {
     }
 
     createBackground() {
-        this.add.sprite(0, 0, 'bg').setOrigin(0);
+        this.bg = this.add.sprite(0, 0, 'bg').setOrigin(0);
         this.sky = this.add.tileSprite(720, 600, 720, 230, 'sky').setOrigin(1);
     }
 
@@ -33,15 +33,28 @@ export default class StartScene extends Phaser.Scene {
     }
 
     startGame() {
-        this.scene.start('Game', {client: this.client});
+        let speed = 600;
+        this.tweens.add({
+            targets: this.sky,
+            y: -1000,
+            duration: speed,
+            callbackScope: this
+        });
+        this.tweens.add({
+            targets: this.button,
+            y: -1000,
+            duration: speed,
+            callbackScope: this,
+        });
+        this.tweens.add({
+            targets: this.bg,
+            y: -1000,
+            duration: speed,
+            callbackScope: this,
+            onComplete: function () {
+                this.scene.start('Game', {client: this.client});
+            }
+        })
     }
 
-    requestGame() {
-        // инициализировать клиент
-        // this.client = new Client();
-        // отправить запрос игры на сервер
-        // this.client.init();
-        // // по факту получения противника начать игру
-        // this.client.on('game', this.startGame, this);
-    }
 }
