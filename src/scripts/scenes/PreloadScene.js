@@ -15,6 +15,11 @@ import boomJson from "../../assets/booom.json";
 import startPng from "../../assets/start.png";
 import skyPng from "../../assets/skies.png";
 
+import dialog1Png from "../../assets/HeroDial1.png";
+import dialog2Png from "../../assets/HeroDial2.png";
+import dialog3Png from "../../assets/HeroDial3.png";
+import dialog4Png from "../../assets/HeroDial4.png";
+
 import chestSound from "../../assets/sounds/chest.mp3";
 import digSound from "../../assets/sounds/Dig.mp3";
 import gameOverSound from "../../assets/sounds/GAMEOVER.mp3";
@@ -36,6 +41,11 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('fog', fogPng);
         this.load.image('start', startPng);
         this.load.image('sky', skyPng);
+
+        this.load.image('dialog1',dialog1Png);
+        this.load.image('dialog2',dialog2Png);
+        this.load.image('dialog3',dialog3Png);
+        this.load.image('dialog4',dialog4Png);
 
         this.load.atlas('bar', barPng, barJson);
         this.load.atlas('boom', boomPng, boomJson);

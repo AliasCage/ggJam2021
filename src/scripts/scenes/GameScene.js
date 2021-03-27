@@ -72,6 +72,7 @@ export default class GameScene extends Phaser.Scene {
         this.hud = new Hud(this);
         this.player = new Player(this, this.playerStats);
 
+
         this.cameraFollow();
 
         this.canPick = true;
@@ -104,6 +105,23 @@ export default class GameScene extends Phaser.Scene {
             };
         }
         this.sounds.theme.play();
+        this.d1 = this.add.sprite(360, 1100, 'dialog1').setScrollFactor(0).setOrigin(0.5).setDepth(9);
+        this.d2 = this.add.sprite(360, 1100, 'dialog2').setScrollFactor(0).setOrigin(0.5).setDepth(8);
+        this.d3 = this.add.sprite(360, 1100, 'dialog4').setScrollFactor(0).setOrigin(0.5).setDepth(7);
+        this.frame = 0;
+
+        this.input.on('pointerdown', () => {
+            if (this.frame === 0) {
+                this.d1.setVisible(false);
+            }
+            if (this.frame > 1) {
+                this.d2.setVisible(false);
+            }
+            if (this.frame > 2) {
+                this.d3.setVisible(false);
+            }
+            this.frame++;
+        });
     }
 
     drawField() {

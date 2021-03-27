@@ -91,8 +91,14 @@ export default class Draw3P {
             this.gameArray[i] = [];
             for (let j = 0; j < this.getColumns(); j++) {
                 let randomValue = this.getCustomRandValue();
+                if (randomValue === 3) {
+                    this.exitRow = i + 1;
+                    this.exitColl = j + 1;
+                }
                 if (!this.scene.exitExist && (j === this.getColumns() - 1) && (i === this.getRows() - 1)) {
                     randomValue = 3;
+                    this.exitRow = i + 1;
+                    this.exitColl = j + 1;
                 }
                 this.gameArray[i][j] = {
                     value: randomValue,
@@ -371,7 +377,7 @@ export default class Draw3P {
                     result.push({
                         row: j,
                         column: i,
-                        deltaRow: j  + extraRow,
+                        deltaRow: j + extraRow,
                         deltaColumn: i
                     });
                     this.gameArray[j][i].value = randomValue;

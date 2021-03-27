@@ -1,6 +1,7 @@
 import * as GameConfig from '../classes/GameConfig';
 import ChestPopup from "../classes/ChestPopup";
 import GameOverPopup from "../classes/GameOverPopup";
+import Phaser from "phaser";
 
 export default class Player {
     constructor(scene, stats) {
@@ -62,7 +63,14 @@ export default class Player {
         if (this.torchCount > 0) {
             this.torchCount--;
         }
+        let distance = Phaser.Math.Distance.Between(this.hero.x, this.hero.y, this.scene.draw3.exitColl * 100, this.scene.draw3.exitRow * 100);
+        if (distance < 500){
+            // showDialog();
+        }
         this.scene.hud.render();
+    }
+    showDialog(){
+
     }
 
     useChest(chest) {
