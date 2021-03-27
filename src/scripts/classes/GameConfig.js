@@ -10,7 +10,7 @@ export const VOLUME_WIND = 0.3;
 
 //player
 export const FOOD = 30; //грок стартует с этим
-export const TORCH = 18;
+export const TORCH = 20;
 export const START_COL = 9;
 export const START_ROW = 7;
 export const MIN_TORCH_COUNT_TO_DIE = 5;

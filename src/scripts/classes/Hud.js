@@ -48,7 +48,10 @@ export default class Hud {
             this.silver.setText(`${this.scene.player.silver}`);
             let scale = GameConfig.DEFAULT_MAX_SCALE;
             if (this.scene.player.torchCount < GameConfig.MAX_TORCH) {
-                scale = GameConfig.DEFAULT_MAX_SCALE * (this.scene.player.torchCount / GameConfig.MAX_TORCH)
+                scale = GameConfig.DEFAULT_MIN_SCALE + GameConfig.DEFAULT_MAX_SCALE * (this.scene.player.torchCount / GameConfig.MAX_TORCH);
+                if (scale > GameConfig.DEFAULT_MAX_SCALE) {
+                    scale = GameConfig.DEFAULT_MAX_SCALE;
+                }
             }
             if (this.scene.player.torchCount <= 0) {
                 scale = GameConfig.DEFAULT_MIN_SCALE;
