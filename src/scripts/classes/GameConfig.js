@@ -9,10 +9,10 @@ export const VOLUME_CHEST = 0.4;
 export const VOLUME_WIND = 0.3;
 
 //player
-export const FOOD = 10; //грок стартует с этим
+export const FOOD = 30; //грок стартует с этим
 export const TORCH = 18;
-export const START_COL = 2;
-export const START_ROW = 3;
+export const START_COL = 9;
+export const START_ROW = 7;
 export const MIN_TORCH_COUNT_TO_DIE = 5;
 
 export const CHEST_MIN_FOOD = 3;
@@ -31,7 +31,7 @@ export const CHEST_TORCH_PERCENT = 0.5;
 //hud
 export const MAX_TORCH = 18;//если у игрока >=18 то тень не будет увеличиваться. и будет DEFAULT_MAX_SCALE
 export const DEFAULT_MIN_SCALE = 1; //инимальный размер окна тени
-export const DEFAULT_MAX_SCALE = 4;
+export const DEFAULT_MAX_SCALE = 2.7;
 
 //draw3p
 export const GRIB_DROP_PERCENT = 0.1;
@@ -42,8 +42,8 @@ export const CHEST_ID = 5;
 //animation
 export const START_MENU_UP_SPEED = 600;
 export const GAME_UP_SPEED = 600;
-export const FRAME_RATE_BOOM = 8;
-export const DROP_BLOCK_SPEED = 100;
+export const FRAME_RATE_BOOM = 20;
+export const DROP_BLOCK_SPEED = 20;
 export const DROP_BLOCK_SCALE_SIZE = 3;
 
 export default class GameConfig {
