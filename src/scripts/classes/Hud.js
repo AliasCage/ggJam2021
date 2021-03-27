@@ -21,7 +21,21 @@ export default class Hud {
         this.gold = this.scene.add.text(510, 50, "Gold: ", style).setScrollFactor(0).setDepth(4).setOrigin(0.5);
 
         this.bar = this.scene.add.sprite(670, 50, 'bar', 'menu').setScrollFactor(0).setOrigin(0.5).setDepth(5).setScale(0.1);
-        this.fog = this.scene.add.sprite(this.config.widthMiddle, this.config.widthMiddle, 'fog').setOrigin(0.5).setDepth(3).setScale(GameConfig.DEFAULT_MAX_SCALE);
+        this.fog = this.scene.add.sprite(this.config.widthMiddle, 1500, 'fog').setOrigin(0.5).setDepth(3).setScale(GameConfig.DEFAULT_MAX_SCALE);
+        this.fog.activated = false;
+    }
+
+    activateFog() {
+        this.fog.x = this.scene.player.hero.x
+        this.scene.tweens.add({
+            targets: this.fog,
+            y: this.scene.player.hero.y,
+            duration: 600,
+            callbackScope: this,
+            onComplete: function () {
+                this.fog.activated = true;
+            }
+        })
     }
 
     render() {

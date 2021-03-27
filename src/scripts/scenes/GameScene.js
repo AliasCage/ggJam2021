@@ -85,13 +85,14 @@ export default class GameScene extends Phaser.Scene {
         }, this);
         this.draw3.generateField();
         this.drawField();
+        this.hud.activateFog();
         this.input.on("pointerdown", this.gemSelect, this);
         this.input.on("pointermove", this.drawPath, this);
         this.input.on("pointerup", this.removeGems, this);
 
         // this.sounds = {
         //     mining: this.sound.add('mining', {volume: 0.1}),
-            // theme: this.sound.add('theme', {volume: 0.2, loop: true})
+        // theme: this.sound.add('theme', {volume: 0.2, loop: true})
         // };
 
         // this.sounds.theme.play();
@@ -280,8 +281,10 @@ export default class GameScene extends Phaser.Scene {
     }
 
     update(time, dt) {
-        this.hud.fog.x = this.player.hero.x;
-        this.hud.fog.y = this.player.hero.y;
+        if (this.hud.fog.activated) {
+            this.hud.fog.x = this.player.hero.x;
+            this.hud.fog.y = this.player.hero.y;
+        }
         this.hud.render();
     }
 
