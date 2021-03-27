@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import * as GameConfig from '../classes/GameConfig';
 
 export default class StartScene extends Phaser.Scene {
     constructor() {
@@ -33,7 +34,7 @@ export default class StartScene extends Phaser.Scene {
     }
 
     startGame() {
-        let speed = 600;
+        let speed = GameConfig.START_MENU_UP_SPEED;
         this.tweens.add({
             targets: this.sky,
             y: -1000,

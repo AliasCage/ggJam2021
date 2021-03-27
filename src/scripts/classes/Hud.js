@@ -30,7 +30,7 @@ export default class Hud {
         this.scene.tweens.add({
             targets: this.fog,
             y: this.scene.player.hero.y,
-            duration: 600,
+            duration: GameConfig.GAME_UP_SPEED,
             callbackScope: this,
             onComplete: function () {
                 this.fog.activated = true;

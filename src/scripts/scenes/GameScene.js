@@ -53,7 +53,7 @@ export default class GameScene extends Phaser.Scene {
         this.anims.create({
             key: 'boom',
             frames,
-            frameRate: 8,
+            frameRate: GameConfig.FRAME_RATE_BOOM,
             repeat: 0
         });
 
@@ -238,13 +238,13 @@ export default class GameScene extends Phaser.Scene {
                 sprite.y = gameOptions.gemSize * movement.row + gameOptions.gemSize / 2;
                 sprite.x = gameOptions.boardOffset.x + gameOptions.gemSize * movement.column + gameOptions.gemSize / 2,
                     sprite.setFrame(this.draw3.valueAt(movement.row, movement.column));
-                sprite.setScale(3);
+                sprite.setScale(GameConfig.DROP_BLOCK_SCALE_SIZE);
                 this.draw3.setCustomData(movement.row, movement.column, sprite);
                 this.tweens.add({
                     targets: sprite,
                     y: gameOptions.boardOffset.y + gameOptions.gemSize * movement.row + gameOptions.gemSize / 2,
                     scale: 1,
-                    duration: gameOptions.fallSpeed * movement.deltaRow,
+                    duration: GameConfig.DROP_BLOCK_SPEED * movement.deltaRow,
                     callbackScope: this,
                     onComplete: function () {
                         moved--;

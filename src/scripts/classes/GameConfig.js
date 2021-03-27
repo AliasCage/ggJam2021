@@ -30,5 +30,12 @@ export const GRIB_ID = 4;
 export const CHEST_DROP_PERCENT = 0.1;
 export const CHEST_ID = 5;
 
+//animation
+export const START_MENU_UP_SPEED = 600;
+export const GAME_UP_SPEED = 600;
+export const FRAME_RATE_BOOM = 8;
+export const DROP_BLOCK_SPEED = 100;
+export const DROP_BLOCK_SCALE_SIZE = 3;
+
 export default class GameConfig {
 }
