@@ -1,7 +1,9 @@
 
 //player
-export const FOOD = 10;
+export const FOOD = 10; //грок стартует с этим
 export const TORCH = 18;
+export const START_COL = 9;
+export const START_ROW = 7;
 export const MIN_TORCH_COUNT_TO_DIE = 5;
 
 export const CHEST_MIN_FOOD = 3;
@@ -18,8 +20,8 @@ export const CHEST_MAX_TORCH = 20;
 export const CHEST_TORCH_PERCENT = 0.5;
 
 //hud
-export const MAX_TORCH = 18;
-export const DEFAULT_MIN_SCALE = 1;
+export const MAX_TORCH = 18;//если у игрока >=18 то тень не будет увеличиваться. и будет DEFAULT_MAX_SCALE
+export const DEFAULT_MIN_SCALE = 1; //инимальный размер окна тени
 export const DEFAULT_MAX_SCALE = 4;
 
 //draw3p

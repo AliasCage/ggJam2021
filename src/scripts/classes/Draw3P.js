@@ -336,7 +336,7 @@ export default class Draw3P {
                 let value = this.valueAt(i, j);
                 let isChest = value !== undefined && value === 4;
 
-                if (!this.isPlayerAt(i, j) ) {
+                if (!this.isPlayerAt(i, j)) {
                     let emptySpaces = this.emptySpacesBelow(i, j);
 
                     if (j == this.getPlayerColumn() && i < this.getPlayerRow()) {
@@ -364,19 +364,15 @@ export default class Draw3P {
     replenishBoard() {
         let result = [];
         for (let i = 0; i < this.getColumns(); i++) {
-            if (this.isEmpty(0, i) || this.isPlayerAt(0, i)) {
-                let emptySpaces = this.emptySpacesBelow(0, i) + 1;
-                if (this.isPlayerAt(0, i)) {
-                    emptySpaces--;
-                }
-                for (let j = 0; j < emptySpaces; j++) {
+            for (let j = 0; j < this.getRows(); j++) {
+                if (this.isEmpty(j, i) && !this.isPlayerAt(j, i)) {
                     let randomValue = this.getCustomRandValue();
-                    let extraRow = (i == this.getPlayerColumn() && j >= this.getPlayerRow()) ? 1 : 0;
+                    let extraRow = (i === this.getPlayerColumn() && j >= this.getPlayerRow()) ? 1 : 0;
                     result.push({
-                        row: j + extraRow,
+                        row: j,
                         column: i,
-                        deltaRow: emptySpaces + extraRow,
-                        deltaColumn: 0
+                        deltaRow: j  + extraRow,
+                        deltaColumn: i
                     });
                     this.gameArray[j][i].value = randomValue;
                 }

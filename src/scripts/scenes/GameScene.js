@@ -3,6 +3,7 @@ import Map from '../classes/Map';
 import Draw3P from '../classes/Draw3P';
 import Player from '../classes/Player';
 import Hud from '../classes/Hud';
+import * as GameConfig from '../classes/GameConfig';
 
 const ITEMS_COUNT = 6;
 
@@ -78,8 +79,8 @@ export default class GameScene extends Phaser.Scene {
             columns: 19,
             items: ITEMS_COUNT,
             playerPosition: {
-                row: 9,
-                column: 7
+                row: GameConfig.START_ROW,
+                column: GameConfig.START_COL
             }
         }, this);
         this.draw3.generateField();
@@ -217,45 +218,33 @@ export default class GameScene extends Phaser.Scene {
 
     makeGemsFall() {
         let moved = 0;
-        let fallingMovements = this.draw3.arrangeBoardAfterChain();
-        fallingMovements.forEach(function (movement) {
-            moved++;
-            let posY = this.draw3.customDataOf(movement.row, movement.column).y + movement.deltaRow * gameOptions.gemSize;
-            this.tweens.add({
-                targets: this.draw3.customDataOf(movement.row, movement.column),
-                y: posY,
-                duration: gameOptions.fallSpeed * Math.abs(movement.deltaRow),
-                callbackScope: this,
-                onComplete: function () {
-                    moved--;
-                    if (moved == 0) {
-                        this.canPick = true;
-                    }
-                }
-            })
-        }.bind(this));
+        this.canPick = true;
         let replenishMovements = this.draw3.replenishBoard();
         replenishMovements.forEach(function (movement) {
             moved++;
             let sprite = this.poolArray.pop();
-            sprite.alpha = 1;
-            sprite.y = gameOptions.boardOffset.y + gameOptions.gemSize * (movement.row - movement.deltaRow + 1) - gameOptions.gemSize / 2;
-            sprite.x = gameOptions.boardOffset.x + gameOptions.gemSize * movement.column + gameOptions.gemSize / 2,
-                sprite.setFrame(this.draw3.valueAt(movement.row, movement.column));
-
-            this.draw3.setCustomData(movement.row, movement.column, sprite);
-            this.tweens.add({
-                targets: sprite,
-                y: gameOptions.boardOffset.y + gameOptions.gemSize * movement.row + gameOptions.gemSize / 2,
-                duration: gameOptions.fallSpeed * movement.deltaRow,
-                callbackScope: this,
-                onComplete: function () {
-                    moved--;
-                    if (moved == 0) {
-                        this.canPick = true;
+            console.log(sprite);
+            if (sprite) {
+                sprite.alpha = 1;
+                sprite.y = gameOptions.gemSize * movement.row + gameOptions.gemSize / 2;
+                sprite.x = gameOptions.boardOffset.x + gameOptions.gemSize * movement.column + gameOptions.gemSize / 2,
+                    sprite.setFrame(this.draw3.valueAt(movement.row, movement.column));
+                sprite.setScale(3);
+                this.draw3.setCustomData(movement.row, movement.column, sprite);
+                this.tweens.add({
+                    targets: sprite,
+                    y: gameOptions.boardOffset.y + gameOptions.gemSize * movement.row + gameOptions.gemSize / 2,
+                    scale: 1,
+                    duration: gameOptions.fallSpeed * movement.deltaRow,
+                    callbackScope: this,
+                    onComplete: function () {
+                        moved--;
+                        if (moved == 0) {
+                            this.canPick = true;
+                        }
                     }
-                }
-            });
+                });
+            }
         }.bind(this))
     }
 
