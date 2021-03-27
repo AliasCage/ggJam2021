@@ -20,7 +20,7 @@ export default class PreloadScene extends Phaser.Scene {
     }
 
     preload() {
-        this.add.sprite(0, 0, bgPng).setOrigin(0);
+        this.add.sprite(0, 0, 'bg').setOrigin(0);
         this.loadingBar = new LoadingBar(this);
         this.load.image('hero', hero);
         this.load.image('fog', fogPng);
