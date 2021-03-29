@@ -65,10 +65,12 @@ export default class Draw3P {
 
     getCustomRandValue() {
         let randomValue = Math.floor(Math.random() * this.items);
-        if (!this.scene.exitExist && randomValue === 3) {
-            this.scene.exitExist = true;
-        } else if (randomValue === 3) {
-            randomValue = 0;
+        if (randomValue === GameConfig.EXIT_ID) {
+            if (!this.scene.exitExist && Math.random() >=0.95) {
+                this.scene.exitExist = true;
+            } else {
+                randomValue = 0;
+            }
         }
         if (randomValue === GameConfig.GRIB_ID) {
             if (Math.random() > GameConfig.GRIB_DROP_PERCENT) {
@@ -91,14 +93,14 @@ export default class Draw3P {
             this.gameArray[i] = [];
             for (let j = 0; j < this.getColumns(); j++) {
                 let randomValue = this.getCustomRandValue();
-                if (randomValue === 3) {
-                    this.exitRow = i + 1;
-                    this.exitColl = j + 1;
-                }
+
                 if (!this.scene.exitExist && (j === this.getColumns() - 1) && (i === this.getRows() - 1)) {
                     randomValue = 3;
                     this.exitRow = i + 1;
                     this.exitColl = j + 1;
+                }
+                if (randomValue === 3) {
+                    console.log("KrotPos: " + (i + 1) + " " + (j + 1));
                 }
                 this.gameArray[i][j] = {
                     value: randomValue,

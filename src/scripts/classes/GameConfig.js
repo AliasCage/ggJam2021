@@ -35,6 +35,7 @@ export const DEFAULT_MAX_SCALE = 2.7;
 
 //draw3p
 export const GRIB_DROP_PERCENT = 0.1;
+export const EXIT_ID = 3;
 export const GRIB_ID = 4;
 export const CHEST_DROP_PERCENT = 0.1;
 export const CHEST_ID = 5;
