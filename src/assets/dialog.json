@@ -1,7 +1,7 @@
 {"frames": [
 
 {
-	"filename": "HeroDial1",
+	"filename": "HeroDial1.png",
 	"frame": {"x":0,"y":0,"w":699,"h":324},
 	"rotated": false,
 	"trimmed": false,
@@ -9,7 +9,7 @@
 	"sourceSize": {"w":699,"h":324}
 },
 {
-	"filename": "HeroDial2",
+	"filename": "HeroDial2.png",
 	"frame": {"x":0,"y":324,"w":699,"h":324},
 	"rotated": false,
 	"trimmed": false,
@@ -17,7 +17,7 @@
 	"sourceSize": {"w":699,"h":324}
 },
 {
-	"filename": "HeroDial3",
+	"filename": "HeroDial3.png",
 	"frame": {"x":0,"y":648,"w":699,"h":324},
 	"rotated": false,
 	"trimmed": false,
@@ -25,7 +25,7 @@
 	"sourceSize": {"w":699,"h":324}
 },
 {
-	"filename": "HeroDial4",
+	"filename": "HeroDial4.png",
 	"frame": {"x":0,"y":972,"w":699,"h":324},
 	"rotated": false,
 	"trimmed": false,
@@ -33,7 +33,7 @@
 	"sourceSize": {"w":699,"h":324}
 },
 {
-	"filename": "HeroDial5",
+	"filename": "HeroDial5.png",
 	"frame": {"x":0,"y":1296,"w":699,"h":324},
 	"rotated": false,
 	"trimmed": false,
@@ -47,6 +47,6 @@
 	"format": "RGBA8888",
 	"size": {"w":699,"h":1620},
 	"scale": "1",
-	"smartupdate": "$TexturePacker:SmartUpdate:3ba9436a28410c36f98e49a72ac6076f:b056c6ad3c4a77f0fb5a503b8a35feab:329b34835539abbbce6727e4ce86c85e$"
+	"smartupdate": "$TexturePacker:SmartUpdate:749dc96b01a39dead664cbe7cdcb93ed:a688c990d219476b45d4a2ef0ddbf220:329b34835539abbbce6727e4ce86c85e$"
 }
 }

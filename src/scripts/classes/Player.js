@@ -6,11 +6,8 @@ import Phaser from "phaser";
 export default class Player {
     constructor(scene, stats) {
         this.scene = scene;
-        this.gameConfig = scene.gameConfig;
 
-        this.hero = this.scene.add.sprite(0, 0, 'hero');
-        this.hero.setInteractive();
-        this.hero.setOrigin(0.5);
+        this.hero = this.scene.add.sprite(0, 0, 'hero').setInteractive().setOrigin(0.5);
         if (stats === undefined) {
             this.foods = GameConfig.FOOD;
             this.torchCount = GameConfig.TORCH;
@@ -24,9 +21,6 @@ export default class Player {
             this.silver = stats.silver;
             this.level = stats.level;
         }
-
-        this.hero.on('move', this.move, this);
-        this.hero.on('exit', this.exit, this);
     }
 
     setPos(posX, posY) {
@@ -51,7 +45,6 @@ export default class Player {
     }
 
     move() {
-        console.log("move")
         this.foods--;
         if (this.foods <= 0) {
             this.scene.sounds.gameOver.play();
@@ -77,23 +70,22 @@ export default class Player {
     }
 
     collect(itemId) {
-        console.log('collect ' + itemId);
-        if (itemId === 0) {
+        if (itemId === GameConfig.GROUND_ID) {
             this.scene.sounds.dig.play();
         }
-        if (itemId === 2) {
+        if (itemId === GameConfig.GOLD_ID) {
             this.gold++;
             this.scene.sounds.mine.play();
         }
-        if (itemId === 1) {
+        if (itemId === GameConfig.SILVER_ID) {
             this.scene.sounds.mine.play();
             this.silver++;
         }
-        if (itemId === 4) {
+        if (itemId === GameConfig.GRIB_ID) {
             this.foods++;
             this.scene.sounds.food.play();
         }
-        if (itemId === 5) {
+        if (itemId === GameConfig.CHEST_ID) {
             this.scene.sounds.chest.play();
             var chest = {};
             if (Math.random() < GameConfig.CHEST_FOOD_PERCENT) {

@@ -11,7 +11,10 @@ export default class StartScene extends Phaser.Scene {
         this.createBackground();
         this.createButtons();
         this.setEvents();
+        this.createSound();
+    }
 
+    createSound() {
         if (this.wind === undefined) {
             this.wind = this.sound.add('wind', {volume: GameConfig.VOLUME_WIND, loop: true});
         }
@@ -39,29 +42,22 @@ export default class StartScene extends Phaser.Scene {
     }
 
     startGame() {
-        let speed = GameConfig.START_MENU_UP_SPEED;
-        this.tweens.add({
-            targets: this.sky,
-            y: -1000,
-            duration: speed,
-            callbackScope: this
+        this.createUpTween(this.sky);
+        this.createUpTween(this.button);
+        this.createUpTween(this.bg, function () {
+            this.wind.stop();
+            this.scene.start('Game', {isNewGame: true});
         });
+    }
+
+    createUpTween(target, onComplete) {
         this.tweens.add({
-            targets: this.button,
-            y: -1000,
-            duration: speed,
+            targets: target,
+            y: target.y - 1500,
+            duration: GameConfig.START_MENU_UP_SPEED,
             callbackScope: this,
+            onComplete: onComplete
         });
-        this.tweens.add({
-            targets: this.bg,
-            y: -1000,
-            duration: speed,
-            callbackScope: this,
-            onComplete: function () {
-                this.wind.stop();
-                this.scene.start('Game', {isNewGame: true});
-            }
-        })
     }
 
 }

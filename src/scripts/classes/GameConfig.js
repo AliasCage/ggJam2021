@@ -35,10 +35,15 @@ export const DEFAULT_MAX_SCALE = 2.7;
 
 //draw3p
 export const GRIB_DROP_PERCENT = 0.1;
+export const CHEST_DROP_PERCENT = 0.1;
+export const GROUND_ID = 0;
+export const SILVER_ID = 1;
+export const GOLD_ID = 2;
 export const EXIT_ID = 3;
 export const GRIB_ID = 4;
-export const CHEST_DROP_PERCENT = 0.1;
 export const CHEST_ID = 5;
+export const ITEMS_COUNT = 6;
+
 
 //animation
 export const START_MENU_UP_SPEED = 600;
@@ -47,5 +52,3 @@ export const FRAME_RATE_BOOM = 20;
 export const DROP_BLOCK_SPEED = 20;
 export const DROP_BLOCK_SCALE_SIZE = 3;
 
-export default class GameConfig {
-}

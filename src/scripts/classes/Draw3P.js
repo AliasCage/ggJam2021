@@ -99,7 +99,7 @@ export default class Draw3P {
                     this.exitRow = i + 1;
                     this.exitColl = j + 1;
                 }
-                if (randomValue === 3) {
+                if (randomValue === GameConfig.EXIT_ID) {
                     console.log("KrotPos: " + (i + 1) + " " + (j + 1));
                 }
                 this.gameArray[i][j] = {
@@ -341,8 +341,6 @@ export default class Draw3P {
         let result = []
         for (let i = this.getRows() - 2; i >= 0; i--) {
             for (let j = 0; j < this.getColumns(); j++) {
-                let value = this.valueAt(i, j);
-                let isChest = value !== undefined && value === 4;
 
                 if (!this.isPlayerAt(i, j)) {
                     let emptySpaces = this.emptySpacesBelow(i, j);

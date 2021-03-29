@@ -15,11 +15,7 @@ import boomJson from "../../assets/booom.json";
 import startPng from "../../assets/start.png";
 import skyPng from "../../assets/skies.png";
 
-import dialog1Png from "../../assets/HeroDial1.png";
-import dialog2Png from "../../assets/HeroDial2.png";
-import dialog3Png from "../../assets/HeroDial3.png";
-import dialog4Png from "../../assets/HeroDial4.png";
-import dialog5Png from "../../assets/HeroDial5.png";
+import dialogPng from "../../assets/dialog.png";
 
 import chestSound from "../../assets/sounds/chest.mp3";
 import digSound from "../../assets/sounds/Dig.mp3";
@@ -37,23 +33,18 @@ export default class PreloadScene extends Phaser.Scene {
 
     preload() {
         this.add.sprite(0, 0, 'bg').setOrigin(0);
-        this.loadingBar = new LoadingBar(this);
+        new LoadingBar(this);
         this.load.image('hero', hero);
         this.load.image('fog', fogPng);
         this.load.image('start', startPng);
         this.load.image('sky', skyPng);
-
-        this.load.image('dialog1',dialog1Png);
-        this.load.image('dialog2',dialog2Png);
-        this.load.image('dialog3',dialog3Png);
-        this.load.image('dialog4',dialog4Png);
-        this.load.image('dialog5',dialog5Png);
 
         this.load.atlas('bar', barPng, barJson);
         this.load.atlas('boom', boomPng, boomJson);
         this.load.spritesheet('arrow', arrowPng, {frameWidth: 200, frameHeight: 200});
         this.load.spritesheet('blocksSet', blocksPng, {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('resSet', resSet, {frameWidth: 100, frameHeight: 100});
+        this.load.spritesheet('dialog', dialogPng, {frameWidth: 699, frameHeight: 324});
         this.load.tilemapTiledJSON('undergroundJson', undergroundJson);
 
         this.load.audio('chest', chestSound);

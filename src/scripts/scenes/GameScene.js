@@ -3,6 +3,7 @@ import Map from '../classes/Map';
 import Draw3P from '../classes/Draw3P';
 import Player from '../classes/Player';
 import Hud from '../classes/Hud';
+import RockFall from '../classes/RockFall';
 import * as GameConfig from '../classes/GameConfig';
 
 const ITEMS_COUNT = 6;
@@ -29,11 +30,6 @@ export default class GameScene extends Phaser.Scene {
     }
 
     preload() {
-        this.createBackground();
-    }
-
-    createBackground() {
-        // this.add.sprite(0, 0, 'bg').setOrigin(0);
     }
 
     cameraFollow() {
@@ -42,26 +38,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     makeBoom(x, y) {
-        let boom = this.add.sprite(x, y, 'boom', 'b1').setDepth(5);
-        // Сгенерировать набор фреймов текстуры, необходимых для анимации
-        const frames = this.anims.generateFrameNames('boom', {
-            prefix: 'b',
-            start: 1,
-            end: 8
-        });
-
-        // Создать новую анимацию на основе полученного набора фреймов
-        this.anims.create({
-            key: 'boom',
-            frames,
-            frameRate: GameConfig.FRAME_RATE_BOOM,
-            repeat: 0
-        });
-
-        // Запустить анимацию
-        boom.play('boom').once(Phaser.Animations.Events.ANIMATION_COMPLETE, () => {
-            boom.destroy();
-        });
+        new RockFall(this, x, y);
     }
 
     create() {
@@ -80,7 +57,7 @@ export default class GameScene extends Phaser.Scene {
         this.draw3 = new Draw3P({
             rows: 19,
             columns: 19,
-            items: ITEMS_COUNT,
+            items: GameConfig.ITEMS_COUNT,
             playerPosition: {
                 row: GameConfig.START_ROW,
                 column: GameConfig.START_COL
@@ -105,27 +82,17 @@ export default class GameScene extends Phaser.Scene {
             };
         }
         this.sounds.theme.play();
-        this.d1 = this.add.sprite(360, 1100, 'dialog1').setScrollFactor(0).setOrigin(0.5).setDepth(10);
-        this.d2 = this.add.sprite(360, 1100, 'dialog2').setScrollFactor(0).setOrigin(0.5).setDepth(9);
-        this.d3 = this.add.sprite(360, 1100, 'dialog4').setScrollFactor(0).setOrigin(0.5).setDepth(8);
-        this.d4 = this.add.sprite(360, 1100, 'dialog5').setScrollFactor(0).setOrigin(0.5).setDepth(7).setVisible(false);
-        this.frame = 0;
 
+        let frame = 0;
+        let dialog = this.add.sprite(360, 1270, 'dialog').setScrollFactor(0).setOrigin(0.5, 1).setDepth(10);
         this.input.on('pointerdown', () => {
-            if (this.frame === 0) {
-                this.d1.setVisible(false);
+            if (dialog) {
+                if (frame >= dialog.texture.frameTotal - 2) {
+                    dialog.destroy();
+                } else {
+                    dialog.setFrame(++frame);
+                }
             }
-            if (this.frame > 1) {
-                this.d2.setVisible(false);
-            }
-            if (this.frame > 2) {
-                this.d3.setVisible(false);
-                this.d4.setVisible(true);
-            }
-            if (this.frame > 3) {
-                this.d4.setVisible(false);
-            }
-            this.frame++;
         });
     }
 
@@ -202,7 +169,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     nonRowedCell(id) {
-        return id === 3 || id === 4 || id === 5;
+        return id === GameConfig.EXIT_ID || id === GameConfig.GRIB_ID || id === GameConfig.CHEST_ID;
     }
 
     removeGems() {
@@ -222,8 +189,8 @@ export default class GameScene extends Phaser.Scene {
             } else {
                 this.playerStep();
                 this.player.move();
-                if (3 === id) {
-                    this.player.hero.emit('exit');
+                if (id === GameConfig.EXIT_ID) {
+                    this.player.exit();
                 }
             }
         }
@@ -277,7 +244,6 @@ export default class GameScene extends Phaser.Scene {
                     duration: GameConfig.DROP_BLOCK_SPEED * movement.deltaRow,
                     callbackScope: this,
                     onComplete: function () {
-                        this.sounds.rockFall.play();
                         this.makeBoom(sprite.x, sprite.y);
                         moved--;
                         if (moved == 0) {
