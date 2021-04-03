@@ -16,7 +16,7 @@ export default class Draw3P {
         }
         this.rows = (obj.rows != undefined) ? obj.rows : 8;
         this.columns = (obj.columns != undefined) ? obj.columns : 7;
-        this.items = (obj.items != undefined) ? obj.items : 6;
+        this.items = GameConfig.ITEMS_COUNT;
         this.playerPosition = (obj.playerPosition != undefined) ? obj.playerPosition : {
             row: this.rows - 1,
             column: Math.floor(this.columns / 2)
@@ -66,7 +66,7 @@ export default class Draw3P {
     getCustomRandValue() {
         let randomValue = Math.floor(Math.random() * this.items);
         if (randomValue === GameConfig.EXIT_ID) {
-            if (!this.scene.exitExist && Math.random() >=0.95) {
+            if (!this.scene.exitExist && Math.random() >= 0.95) {
                 this.scene.exitExist = true;
             } else {
                 randomValue = 0;
@@ -92,6 +92,9 @@ export default class Draw3P {
         for (let i = 0; i < this.getRows(); i++) {
             this.gameArray[i] = [];
             for (let j = 0; j < this.getColumns(); j++) {
+                if (!this.scene.map.checkIsNonBlocked(i, j)) {
+                    continue;
+                }
                 let randomValue = this.getCustomRandValue();
 
                 if (!this.scene.exitExist && (j === this.getColumns() - 1) && (i === this.getRows() - 1)) {
@@ -316,7 +319,8 @@ export default class Draw3P {
 
     // returns true if the item at (row, column) is empty
     isEmpty(row, column) {
-        return this.gameArray[row][column].isEmpty;
+        let val = this.gameArray[row][column];
+        return val !== undefined && val.isEmpty;
     }
 
     isBlocked(row, column) {
@@ -386,7 +390,9 @@ export default class Draw3P {
         }
         for (let i = 0; i < this.getRows(); i++) {
             for (let j = 0; j < this.getColumns(); j++) {
-                this.gameArray[i][j].isEmpty = false;
+                if (this.gameArray[i][j]) {
+                    this.gameArray[i][j].isEmpty = false;
+                }
             }
         }
         return result;

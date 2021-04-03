@@ -7,7 +7,7 @@ export default class Player {
         this.scene = scene;
 
         this.hero = this.scene.add.sprite(0, 0, 'hero').setInteractive().setOrigin(0.5);
-        this.startPos = {row: GameConfig.START_ROW, coll: GameConfig.START_ROW};
+        this.startPos = {row: GameConfig.START_ROW, column: GameConfig.START_ROW};
         if (stats === undefined) {
             this.foods = GameConfig.FOOD;
             this.torchCount = GameConfig.TORCH;

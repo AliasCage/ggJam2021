@@ -34,7 +34,7 @@ export const DEFAULT_MAX_SCALE = 2.7;
 
 //draw3p
 export const GRIB_DROP_PERCENT = 0.1;
-export const CHEST_DROP_PERCENT = 0.9;
+export const CHEST_DROP_PERCENT = 0.1;
 export const GROUND_ID = 0;
 export const SILVER_ID = 1;
 export const GOLD_ID = 2;

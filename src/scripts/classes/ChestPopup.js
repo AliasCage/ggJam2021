@@ -13,14 +13,15 @@ export default class ChestPopup {
         const popupWidth = 500;
         const popupHeight = 300;
 
+        let centreX = this.scene.cameras.main.centerX;
+        let centreY = this.scene.cameras.main.centerY;
+
         this.popup = this.scene.add.graphics()
             .setScrollFactor(0)
             .fillStyle(0x000000, 0.7)
             .setDepth(6)
-            .fillRect((this.scene.sys.game.config.width - popupWidth) / 2, (this.scene.sys.game.config.height - popupHeight) / 2, popupWidth, popupHeight);
+            .fillRect(centreX - popupWidth / 2, centreY - popupHeight / 2, popupWidth, popupHeight);
 
-        let centreX = this.scene.cameras.main.centerX;
-        let centreY = this.scene.cameras.main.centerY;
         this.title = this.createText(centreX, centreY - 110, this.label, styleHead);
         let upSide = centreY - 50;
         let downSide = centreY + 50;

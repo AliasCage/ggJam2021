@@ -3,27 +3,37 @@ import * as GameConfig from '../classes/GameConfig';
 export default class Hud {
     constructor(scene) {
         this.scene = scene;
+        this.styleMain = {font: '36px Arial', fill: '#FFFFFF'};
         this.create();
     }
 
     create() {
         this.config = this.scene.game.config;
-        const style = {font: '36px Arial', fill: '#FFFFFF'};
-        this.torch = this.scene.add.text(10, 150, "Torch: ", style).setScrollFactor(0).setDepth(4);
-        this.level = this.scene.add.text(200, 150, "Level: ", style).setScrollFactor(0).setDepth(4);
+        this.bar = this.createIcon(50, 150, 'torch');
+        this.torch = this.createText(110, 150);
 
-        this.bar = this.scene.add.sprite(50, 50, 'bar', 'food').setScrollFactor(0).setOrigin(0.5).setDepth(5).setScale(0.1);
-        this.foods = this.scene.add.text(110, 50, "Foods: ", style).setScrollFactor(0).setDepth(4).setOrigin(0.5);
+        this.level = this.createText(360, 150, "Level: ");
 
-        this.bar = this.scene.add.sprite(250, 50, 'bar', 'silver').setScrollFactor(0).setOrigin(0.5).setDepth(5).setScale(0.1);
-        this.silver = this.scene.add.text(310, 50, "Silver: ", style).setScrollFactor(0).setDepth(4).setOrigin(0.5);
+        this.bar = this.createIcon(50, 50, 'food');
+        this.foods = this.createText(110, 50);
 
-        this.bar = this.scene.add.sprite(450, 50, 'bar', 'gold').setScrollFactor(0).setOrigin(0.5).setDepth(5).setScale(0.1);
-        this.gold = this.scene.add.text(510, 50, "Gold: ", style).setScrollFactor(0).setDepth(4).setOrigin(0.5);
+        this.bar = this.createIcon(250, 50, 'silver');
+        this.silver = this.createText(310, 50);
 
-        this.bar = this.scene.add.sprite(670, 50, 'bar', 'menu').setScrollFactor(0).setOrigin(0.5).setDepth(5).setScale(0.1);
-        this.fog = this.scene.add.sprite(this.config.widthMiddle, 1500, 'fog').setOrigin(0.5).setDepth(3).setScale(GameConfig.DEFAULT_MAX_SCALE);
+        this.bar = this.createIcon(450, 50, 'gold');
+        this.gold = this.createText(510, 50);
+
+        this.bar = this.createIcon(670, 50, 'menu');
+        this.fog = this.scene.add.sprite(this.config.widthMiddle, 1500, 'fog').setOrigin(0.5).setDepth(4).setScale(GameConfig.DEFAULT_MAX_SCALE);
         this.fog.activated = false;
+    }
+
+    createText(x, y, label) {
+        return this.scene.add.text(x, y, label, this.styleMain).setScrollFactor(0).setDepth(5).setOrigin(0.5);
+    }
+
+    createIcon(x, y, value) {
+        return this.scene.add.sprite(x, y, 'bar', value).setScrollFactor(0).setOrigin(0.5).setDepth(5).setScale(0.1);
     }
 
     activateFog() {
@@ -42,7 +52,7 @@ export default class Hud {
     render() {
         if (this.scene.player) {
             this.foods.setText(`${this.scene.player.foods}`);
-            this.torch.setText(`Torch: ${this.scene.player.torchCount}`);
+            this.torch.setText(`${this.scene.player.torchCount}`);
             this.level.setText(`Level: ${this.scene.player.level}`);
             this.gold.setText(`${this.scene.player.gold}`);
             this.silver.setText(`${this.scene.player.silver}`);
