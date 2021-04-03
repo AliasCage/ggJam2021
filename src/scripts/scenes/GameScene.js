@@ -22,9 +22,6 @@ export default class GameScene extends Phaser.Scene {
         console.log(data)
     }
 
-    preload() {
-    }
-
     cameraFollow() {
         this.cameras.main.setBounds(0, 0, this.map.tilemap.widthInPixels, this.map.tilemap.heightInPixels);
         this.cameras.main.startFollow(this.player.hero);
@@ -36,7 +33,6 @@ export default class GameScene extends Phaser.Scene {
 
     create() {
         this.config = this.game.config;
-        this.exitExist = false;
 
         this.player = new Player(this, this.playerStats);
         this.map = new Map(this);
@@ -51,6 +47,7 @@ export default class GameScene extends Phaser.Scene {
             rows: this.map.rowsCount,
             columns: this.map.collCount,
             playerPosition: this.player.startPos,
+            exitPosition: this.map.getExit(),
         }, this);
         this.draw3.generateField();
 
@@ -64,7 +61,7 @@ export default class GameScene extends Phaser.Scene {
             this.intiSounds();
         }
 
-        if (this.playerStats) {
+        if (!this.playerStats) {
             this.createDialog();
         }
     }

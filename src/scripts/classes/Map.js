@@ -13,6 +13,7 @@ export default class Map {
         this.tileset = this.tilemap.addTilesetImage('blocks', 'blocksSet', 100, 100, 0, 0);
         this.rowsCount = this.tilemap.height - 2;
         this.collCount = this.tilemap.width - 2;
+        this.getExit();
     }
 
     create() {
@@ -36,5 +37,17 @@ export default class Map {
         let posY = GameConfig.CELL_SIZE + coll * GameConfig.CELL_SIZE;
         let tile = this.tilemap.getTileAtWorldXY(posX, posY, false, this.scene.cameras.main, 'blocks');
         return tile === undefined || tile === null;
+    }
+
+    getExit() {
+        let layer = this.tilemap.objects[1];
+        if (layer && layer.name === 'exits') {
+            let id = Math.floor(Math.random() * layer.objects.length);
+            let exit = layer.objects[id];
+            let row = Math.floor((exit.y - GameConfig.CELL_SIZE) / GameConfig.CELL_SIZE);
+            let col = Math.floor((exit.x - GameConfig.CELL_SIZE) / GameConfig.CELL_SIZE);
+            return {row: row, column: col};
+        }
+        return undefined;
     }
 }

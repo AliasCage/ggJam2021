@@ -21,6 +21,10 @@ export default class Draw3P {
             row: this.rows - 1,
             column: Math.floor(this.columns / 2)
         };
+        this.exitPosition = (obj.exitPosition != undefined) ? obj.exitPosition : {
+            row: this.rows - 1,
+            column: Math.floor(this.columns / 2)
+        };
         if (this.playerPosition.row == undefined || this.playerPosition.row < 0 || this.playerPosition.row >= this.rows) {
             this.playerPosition.row = this.rows - 1;
         }
@@ -63,14 +67,15 @@ export default class Draw3P {
         return row == this.getPlayerRow() && column == this.getPlayerColumn();
     }
 
+    // returns true if player is at "row" row and "column" column
+    isExitAt(row, column) {
+        return row == this.exitPosition.row && column == this.exitPosition.column;
+    }
+
     getCustomRandValue() {
         let randomValue = Math.floor(Math.random() * this.items);
         if (randomValue === GameConfig.EXIT_ID) {
-            if (!this.scene.exitExist && Math.random() >= 0.95) {
-                this.scene.exitExist = true;
-            } else {
-                randomValue = 0;
-            }
+            randomValue = 0;
         }
         if (randomValue === GameConfig.GRIB_ID) {
             if (Math.random() > GameConfig.GRIB_DROP_PERCENT) {
@@ -95,16 +100,14 @@ export default class Draw3P {
                 if (!this.scene.map.checkIsNonBlocked(i, j)) {
                     continue;
                 }
-                let randomValue = this.getCustomRandValue();
-
-                if (!this.scene.exitExist && (j === this.getColumns() - 1) && (i === this.getRows() - 1)) {
-                    randomValue = 3;
-                    this.exitRow = i + 1;
-                    this.exitColl = j + 1;
-                }
-                if (randomValue === GameConfig.EXIT_ID) {
+                let randomValue;
+                if (this.isExitAt(i, j)) {
+                    randomValue = GameConfig.EXIT_ID;
                     console.log("KrotPos: " + (i + 1) + " " + (j + 1));
+                } else {
+                    randomValue = this.getCustomRandValue();
                 }
+
                 this.gameArray[i][j] = {
                     value: randomValue,
                     isEmpty: false,
