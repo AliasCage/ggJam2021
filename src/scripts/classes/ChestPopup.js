@@ -8,7 +8,8 @@ export default class ChestPopup {
     }
 
     create() {
-        const style = {font: '30px Arial', fill: '#FFFFFF'};
+        const styleMain = {font: '30px Arial', fill: '#FFFFFF'};
+        const styleHead = {font: '46px Arial', fill: '#FAFAD2'};
         const popupWidth = 500;
         const popupHeight = 300;
 
@@ -18,38 +19,28 @@ export default class ChestPopup {
             .setDepth(6)
             .fillRect((this.scene.sys.game.config.width - popupWidth) / 2, (this.scene.sys.game.config.height - popupHeight) / 2, popupWidth, popupHeight);
 
-        this.title = this.scene.add.text(this.scene.cameras.main.centerX,
-            this.scene.cameras.main.centerY - 110,
-            this.label,
-            {font: '46px Arial', fill: '#FAFAD2'})
-            .setOrigin(0.5)
-            .setDepth(6)
-            .setScrollFactor(0);
         let centreX = this.scene.cameras.main.centerX;
         let centreY = this.scene.cameras.main.centerY;
+        this.title = this.createText(centreX, centreY - 110, this.label, styleHead);
+        let upSide = centreY - 50;
+        let downSide = centreY + 50;
         if (this.chest.food) {
-            this.foods = this.scene.add.text(centreX - 100, centreY - 50, "+" + this.chest.food, style).setScrollFactor(0).setDepth(6).setOrigin(0.5);
-            this.foodsText = this.scene.add.sprite(centreX - 40, centreY - 50, 'bar', 'food').setScrollFactor(0).setOrigin(0.5).setDepth(6).setScale(0.1);
+            this.foods = this.createText(centreX - 100, upSide, `+${this.chest.food}`, styleMain);
+            this.foodsText = this.createIcon(centreX - 40, upSide, 'food');
         }
         if (this.chest.torchCount) {
-            this.torchText = this.scene.add.text(centreX + 40, centreY - 50, "+" + this.chest.torchCount, style).setScrollFactor(0).setDepth(6).setOrigin(0.5);
-            this.torch = this.scene.add.sprite(centreX + 100, centreY - 50, 'bar', 'torch').setScrollFactor(0).setOrigin(0.5).setDepth(6).setScale(0.1);
+            this.torchText = this.createText(centreX + 40, upSide, `+${this.chest.torchCount}`, styleMain);
+            this.torch = this.createIcon(centreX + 100, upSide, 'torch');
         }
         if (this.chest.silver) {
-            this.silverText = this.scene.add.text(centreX - 100, centreY + 50, "+" + this.chest.silver, style).setScrollFactor(0).setDepth(6).setOrigin(0.5);
-            this.silver = this.scene.add.sprite(centreX - 40, centreY + 50, 'bar', 'silver').setScrollFactor(0).setOrigin(0.5).setDepth(6).setScale(0.1);
+            this.silverText = this.createText(centreX - 100, downSide, `+${this.chest.silver}`, styleMain);
+            this.silver = this.createIcon(centreX - 40, downSide, 'silver');
         }
         if (this.chest.gold) {
-            this.goldText = this.scene.add.text(centreX + 40, centreY + 50, "+" + this.chest.gold, style).setScrollFactor(0).setDepth(6).setOrigin(0.5);
-            this.gold = this.scene.add.sprite(centreX + 100, centreY + 50, 'bar', 'gold').setScrollFactor(0).setOrigin(0.5).setDepth(6).setScale(0.1);
+            this.goldText = this.createText(centreX + 40, downSide, `+${this.chest.gold}`, styleMain);
+            this.gold = this.createIcon(centreX + 100, downSide, 'gold');
         }
-        this.text = this.scene.add.text(this.scene.cameras.main.centerX,
-            this.scene.cameras.main.centerY + 100,
-            `Тап чтоб продожить!`,
-            style)
-            .setOrigin(0.5)
-            .setDepth(6)
-            .setScrollFactor(0);
+        this.text = this.createText(centreX, centreY + 100, `Тап чтоб продожить!`, styleMain);
 
         this.scene.input.once('pointerdown', () => {
             this.onComplete();
@@ -73,5 +64,20 @@ export default class ChestPopup {
             this.popup.destroy();
             this.text.destroy();
         });
+    }
+
+    createText(posX, posY, label, style) {
+        return this.scene.add.text(posX, posY, label, style)
+            .setOrigin(0.5)
+            .setDepth(6)
+            .setScrollFactor(0);
+    }
+
+    createIcon(posX, posY, value) {
+        return this.scene.add.sprite(posX, posY, 'bar', value)
+            .setScrollFactor(0)
+            .setOrigin(0.5)
+            .setDepth(6)
+            .setScale(0.1);
     }
 }

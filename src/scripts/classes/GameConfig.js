@@ -13,7 +13,6 @@ export const FOOD = 30; //грок стартует с этим
 export const TORCH = 20;
 export const START_COL = 9;
 export const START_ROW = 7;
-export const MIN_TORCH_COUNT_TO_DIE = 5;
 
 export const CHEST_MIN_FOOD = 3;
 export const CHEST_MAX_FOOD = 20;
@@ -35,7 +34,7 @@ export const DEFAULT_MAX_SCALE = 2.7;
 
 //draw3p
 export const GRIB_DROP_PERCENT = 0.1;
-export const CHEST_DROP_PERCENT = 0.1;
+export const CHEST_DROP_PERCENT = 0.9;
 export const GROUND_ID = 0;
 export const SILVER_ID = 1;
 export const GOLD_ID = 2;
@@ -52,3 +51,5 @@ export const FRAME_RATE_BOOM = 20;
 export const DROP_BLOCK_SPEED = 20;
 export const DROP_BLOCK_SCALE_SIZE = 3;
 
+//field
+export const CELL_SIZE = 100;

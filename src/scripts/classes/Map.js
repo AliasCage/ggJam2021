@@ -1,8 +1,11 @@
+import * as GameConfig from '../classes/GameConfig';
+
 export default class Map {
     constructor(scene) {
         this.scene = scene;
         this.init();
         this.create();
+        this.initPlayerPos();
     }
 
     init() {
@@ -17,6 +20,13 @@ export default class Map {
     createLayers() {
         this.tilemap.createStaticLayer('ground', this.tileset);
         this.tilemap.createStaticLayer('blocks', this.tileset);
+    }
+
+    initPlayerPos() {
+        this.tilemap.findObject('player', player => {
+            this.scene.player.startPos.row = Math.floor(player.x / GameConfig.CELL_SIZE);
+            this.scene.player.startPos.coll = Math.floor(player.y / GameConfig.CELL_SIZE);
+        });
     }
 
 }

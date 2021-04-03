@@ -1,13 +1,13 @@
 import * as GameConfig from '../classes/GameConfig';
 import ChestPopup from "../classes/ChestPopup";
 import GameOverPopup from "../classes/GameOverPopup";
-import Phaser from "phaser";
 
 export default class Player {
     constructor(scene, stats) {
         this.scene = scene;
 
         this.hero = this.scene.add.sprite(0, 0, 'hero').setInteractive().setOrigin(0.5);
+        this.startPos = {row: GameConfig.START_ROW, coll: GameConfig.START_ROW};
         if (stats === undefined) {
             this.foods = GameConfig.FOOD;
             this.torchCount = GameConfig.TORCH;
@@ -59,7 +59,9 @@ export default class Player {
         // let distance = Phaser.Math.Distance.Between(this.hero.x, this.hero.y, this.scene.draw3.exitColl * 100, this.scene.draw3.exitRow * 100);
         // if (distance < 500){
         // }
-        this.scene.hud.render();
+        if (this.scene.hud) {
+            this.scene.hud.render();
+        }
     }
 
     useChest(chest) {

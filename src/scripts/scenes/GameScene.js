@@ -6,16 +6,14 @@ import Hud from '../classes/Hud';
 import RockFall from '../classes/RockFall';
 import * as GameConfig from '../classes/GameConfig';
 
-const ITEMS_COUNT = 6;
-
 let gameOptions = {
-    gemSize: 100,
+    gemSize: GameConfig.CELL_SIZE,
     fallSpeed: 100,
     destroySpeed: 200,
     moveSpeed: 100,
     boardOffset: {
-        x: 100,
-        y: 100
+        x: GameConfig.CELL_SIZE,
+        y: GameConfig.CELL_SIZE
     }
 }
 
@@ -45,9 +43,9 @@ export default class GameScene extends Phaser.Scene {
         this.config = this.game.config;
         this.exitExist = false;
 
+        this.player = new Player(this, this.playerStats);
         this.map = new Map(this);
         this.hud = new Hud(this);
-        this.player = new Player(this, this.playerStats);
 
 
         this.cameraFollow();
@@ -59,8 +57,8 @@ export default class GameScene extends Phaser.Scene {
             columns: 19,
             items: GameConfig.ITEMS_COUNT,
             playerPosition: {
-                row: GameConfig.START_ROW,
-                column: GameConfig.START_COL
+                row: this.player.startPos.row,
+                column: this.player.startPos.coll
             }
         }, this);
         this.draw3.generateField();
@@ -83,6 +81,12 @@ export default class GameScene extends Phaser.Scene {
         }
         this.sounds.theme.play();
 
+        if (this.playerStats) {
+            this.createDialog();
+        }
+    }
+
+    createDialog() {
         let frame = 0;
         let dialog = this.add.sprite(360, 1270, 'dialog').setScrollFactor(0).setOrigin(0.5, 1).setDepth(10);
         this.input.on('pointerdown', () => {
