@@ -121,9 +121,12 @@ export default class GameScene extends Phaser.Scene {
     }
 
     gemSelect(pointer) {
+        console.log(pointer);
+        console.log(this.player.hero)
+
         if (this.canPick) {
-            let row = Math.floor((pointer.worldY - GameConfig.CELL_SIZE) / GameConfig.CELL_SIZE);
-            let col = Math.floor((pointer.worldX - GameConfig.CELL_SIZE) / GameConfig.CELL_SIZE);
+            let row = Math.floor((pointer.worldY / GameConfig.CELL_SIZE)) - 1;
+            let col = Math.floor((pointer.worldX / GameConfig.CELL_SIZE)) - 1;
             if (this.draw3.validPick(row, col)
                 && this.draw3.isPlayerAt(row, col)
                 && this.map.checkIsNonBlocked(row, col)) {
@@ -140,8 +143,8 @@ export default class GameScene extends Phaser.Scene {
         if (this.dragging) {
             this.player.hero.flipX = pointer.worldX > this.player.hero.x;
 
-            let row = Math.floor((pointer.worldY - GameConfig.CELL_SIZE) / GameConfig.CELL_SIZE);
-            let col = Math.floor((pointer.worldX - GameConfig.CELL_SIZE) / GameConfig.CELL_SIZE);
+            let row = Math.floor((pointer.worldY / GameConfig.CELL_SIZE)) - 1;
+            let col = Math.floor((pointer.worldX / GameConfig.CELL_SIZE)) - 1;
             if (this.map.checkIsNonBlocked(row, col) && this.draw3.validPick(row, col)) {
                 let distance = Phaser.Math.Distance.Between(pointer.worldX, pointer.worldY, this.draw3.customDataOf(row, col).x, this.draw3.customDataOf(row, col).y);
                 if (distance < GameConfig.CELL_SIZE * 0.4) {
@@ -183,7 +186,7 @@ export default class GameScene extends Phaser.Scene {
                 this.canPick = true;
             } else {
                 this.playerStep();
-                this.player.move();
+                // this.player.move();
                 if (id === GameConfig.EXIT_ID) {
                     this.player.exit();
                 }
@@ -246,7 +249,8 @@ export default class GameScene extends Phaser.Scene {
                     }
                 });
             }
-        }.bind(this))
+        }.bind(this));
+        this.player.move();
     }
 
     displayPath() {

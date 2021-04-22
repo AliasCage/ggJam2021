@@ -1,6 +1,5 @@
 import Phaser from "phaser";
 import LoadingBar from '../classes/LoadingBar';
-import undergroundJson from '../../assets/underground.json';
 import blocksPng from '../../assets/blocks.png';
 import resSet from '../../assets/resources.png';
 import hero from '../../assets/hero.png';
@@ -14,6 +13,7 @@ import boomPng from "../../assets/booom.png";
 import boomJson from "../../assets/booom.json";
 import startPng from "../../assets/start.png";
 import skyPng from "../../assets/skies.png";
+import fingerPng from "../../assets/finger.png";
 
 import dialogPng from "../../assets/dialog.png";
 
@@ -25,6 +25,10 @@ import foodSound from "../../assets/sounds/Mushroom.mp3";
 import themeSound from "../../assets/sounds/Music.mp3";
 import rockFallSound from "../../assets/sounds/RockFall.mp3";
 import windSound from "../../assets/sounds/wind.mp3";
+
+import lvl1Json from '../../assets/lvl_1.json';
+import lvl2Json from '../../assets/lvl_2.json';
+
 
 export default class PreloadScene extends Phaser.Scene {
     constructor() {
@@ -38,6 +42,7 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.image('fog', fogPng);
         this.load.image('start', startPng);
         this.load.image('sky', skyPng);
+        this.load.image('finger', fingerPng);
 
         this.load.atlas('bar', barPng, barJson);
         this.load.atlas('boom', boomPng, boomJson);
@@ -45,7 +50,8 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.spritesheet('blocksSet', blocksPng, {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('resSet', resSet, {frameWidth: 100, frameHeight: 100});
         this.load.spritesheet('dialog', dialogPng, {frameWidth: 699, frameHeight: 324});
-        this.load.tilemapTiledJSON('undergroundJson', undergroundJson);
+        this.load.tilemapTiledJSON('lvl_1', lvl1Json);
+        this.load.tilemapTiledJSON('lvl_2', lvl2Json);
 
         this.load.audio('chest', chestSound);
         this.load.audio('dig', digSound);

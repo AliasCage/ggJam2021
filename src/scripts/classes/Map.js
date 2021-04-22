@@ -9,7 +9,7 @@ export default class Map {
     }
 
     init() {
-        this.tilemap = this.scene.make.tilemap({key: 'undergroundJson'});
+        this.tilemap = this.scene.make.tilemap({key: 'lvl_' + this.scene.player.level});
         this.tileset = this.tilemap.addTilesetImage('blocks', 'blocksSet', 100, 100, 0, 0);
         this.rowsCount = this.tilemap.height - 2;
         this.collCount = this.tilemap.width - 2;
@@ -27,8 +27,8 @@ export default class Map {
 
     initPlayerPos() {
         this.tilemap.findObject('player', player => {
-            this.scene.player.startPos.row = Math.floor(player.x / GameConfig.CELL_SIZE);
-            this.scene.player.startPos.column = Math.floor(player.y / GameConfig.CELL_SIZE);
+            this.scene.player.startPos.row = Math.floor(player.y / GameConfig.CELL_SIZE) - 1;
+            this.scene.player.startPos.column = Math.floor(player.x / GameConfig.CELL_SIZE) - 1;
         });
     }
 
@@ -44,8 +44,8 @@ export default class Map {
         if (layer && layer.name === 'exits') {
             let id = Math.floor(Math.random() * layer.objects.length);
             let exit = layer.objects[id];
-            let row = Math.floor((exit.y - GameConfig.CELL_SIZE) / GameConfig.CELL_SIZE);
-            let col = Math.floor((exit.x - GameConfig.CELL_SIZE) / GameConfig.CELL_SIZE);
+            let row = Math.floor(exit.y / GameConfig.CELL_SIZE) - 1;
+            let col = Math.floor(exit.x / GameConfig.CELL_SIZE) - 1;
             return {row: row, column: col};
         }
         return undefined;

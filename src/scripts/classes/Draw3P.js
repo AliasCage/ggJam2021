@@ -73,6 +73,9 @@ export default class Draw3P {
     }
 
     getCustomRandValue() {
+        if (this.scene.player.level === 1) {
+            return 0;
+        }
         let randomValue = Math.floor(Math.random() * this.items);
         if (randomValue === GameConfig.EXIT_ID) {
             randomValue = 0;

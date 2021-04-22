@@ -53,3 +53,9 @@ export const DROP_BLOCK_SCALE_SIZE = 3;
 
 //field
 export const CELL_SIZE = 100;
+
+export function getPosBy(row){
+    // let posX = GameConfig.CELL_SIZE + row * GameConfig.CELL_SIZE;
+    // let posY = GameConfig.CELL_SIZE + coll * GameConfig.CELL_SIZE;
+    return CELL_SIZE + row * CELL_SIZE;
+}

@@ -62,6 +62,7 @@ export default class Player {
         if (this.scene.hud) {
             this.scene.hud.render();
         }
+        this.hero.emit('playerMove');
     }
 
     useChest(chest) {

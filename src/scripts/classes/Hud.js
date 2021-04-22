@@ -26,6 +26,84 @@ export default class Hud {
         this.bar = this.createIcon(670, 50, 'menu');
         this.fog = this.scene.add.sprite(this.config.widthMiddle, 1500, 'fog').setOrigin(0.5).setDepth(4).setScale(GameConfig.DEFAULT_MAX_SCALE);
         this.fog.activated = false;
+
+        if (this.scene.player.level === 1) {
+            var startPos = this.scene.player.startPos;
+            var exitPos = this.scene.map.getExit();
+            var posX = GameConfig.getPosBy(startPos.column) + 50;
+            var posY = GameConfig.getPosBy(startPos.row) + 50;
+            var finger = this.scene.add.sprite(posX, posY, 'finger')
+                .setDepth(3)
+                .setOrigin(0);
+
+            var timeline = this.scene.tweens.timeline({
+                targets: finger,
+                loop: 5,
+                loopDelay: 1000,
+                ease: 'Power1',
+                totalDuration: 3000,
+                onLoop: function () {
+                    finger.x = posX;
+                    finger.y = posY;
+                },
+                onComplete: function () {
+                    finger.setVisible(false)
+                },
+                tweens: [
+                    {
+                        x: posX + 100,
+                    },
+                    {
+                        y: posY - 100,
+                        x: posX + 200,
+                    },
+                    {
+                        x: posX + 300,
+                    },
+                    {
+                        y: posY - 200,
+                    }
+                ]
+            });
+
+            this.scene.player.hero.on('playerMove', () => {
+                finger.setVisible(false);
+                timeline.stop();
+                timeline.destroy();
+
+                var toX = GameConfig.getPosBy(this.scene.draw3.exitPosition.column) +50;
+                var toY = GameConfig.getPosBy(this.scene.draw3.exitPosition.row)+50;
+                let x = this.scene.player.hero.x;
+                let y = this.scene.player.hero.y;
+                finger.setVisible(true);
+
+                finger.x = x;
+                finger.y = y;
+
+                timeline = this.scene.tweens.timeline({
+                    targets: finger,
+                    loop: 5,
+                    loopDelay: 1000,
+                    ease: 'Power1',
+                    totalDuration: 1000,
+                    onLoop: function () {
+                        finger.x = x;
+                        finger.y = y;
+                    },
+                    onComplete: function () {
+                        finger.setVisible(false);
+                        timeline.stop();
+                        timeline.destroy();
+                    },
+                    tweens: [
+                        {
+                            x: toX,
+                            y: toY
+                        }
+                    ]
+                });
+            }, this.scene);
+        }
     }
 
     createText(x, y, label) {

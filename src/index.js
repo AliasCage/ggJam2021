@@ -5,7 +5,8 @@ import StartScene from './scripts/scenes/StartScene';
 import GameScene from './scripts/scenes/GameScene';
 
 const config = {
-    type: Phaser.AUTO,
+    type: Phaser.WEBGL,
+
     width: 720,
     height: 1280,
     widthMiddle: 360,
