@@ -38,7 +38,21 @@ export default class StartScene extends Phaser.Scene {
     }
 
     setEvents() {
-        this.button.on('pointerdown', this.startGame, this);
+        let sizeUp = 1.2;
+        let normal = 1;
+        this.button.on("pointerup", function () {
+                this.button.setScale(normal);
+                this.startGame();
+            }, this)
+            .on("pointerdown", function () {
+                this.button.setScale(sizeUp);
+            }, this)
+            .on("pointerover", function () {
+                this.button.setScale(sizeUp);
+            }, this)
+            .on("pointerout", function () {
+                this.button.setScale(normal);
+            }, this);
     }
 
     startGame() {

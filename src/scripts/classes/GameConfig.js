@@ -10,7 +10,7 @@ export const VOLUME_WIND = 0.3;
 
 //player
 export const FOOD = 30; //грок стартует с этим
-export const TORCH = 20;
+export const TORCH = 27;
 export const START_COL = 9;
 export const START_ROW = 7;
 
@@ -42,6 +42,15 @@ export const EXIT_ID = 3;
 export const GRIB_ID = 4;
 export const CHEST_ID = 5;
 export const ITEMS_COUNT = 6;
+//gro, sil, gol, gri, che
+export const DROP_SRC = [
+    [1, 0, 0, 0, 0],
+    [1, 0, 0, 0, 0],
+    [1, 1, 1, 0, 0],
+    [1, 1, 1, 0.1, 0.1],
+    [1, 1, 1, 0.1, 0.1],
+    [1, 1, 1, 0.1, 0.1],
+];
 
 
 //animation

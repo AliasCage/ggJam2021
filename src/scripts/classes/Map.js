@@ -9,7 +9,8 @@ export default class Map {
     }
 
     init() {
-        this.tilemap = this.scene.make.tilemap({key: 'lvl_' + this.scene.player.level});
+        let lvl = this.scene.player.level < 6 ? this.scene.player.level : 10;
+        this.tilemap = this.scene.make.tilemap({key: 'lvl_' + lvl});
         this.tileset = this.tilemap.addTilesetImage('blocks', 'blocksSet', 100, 100, 0, 0);
         this.rowsCount = this.tilemap.height - 2;
         this.collCount = this.tilemap.width - 2;
@@ -23,6 +24,16 @@ export default class Map {
     createLayers() {
         this.tilemap.createStaticLayer('ground', this.tileset);
         this.tilemap.createStaticLayer('blocks', this.tileset);
+
+        this.createInvisibleLayer('golds');
+        this.createInvisibleLayer('food');
+        this.createInvisibleLayer('chest');
+    }
+    createInvisibleLayer(name){
+        let layer = this.tilemap.createStaticLayer(name, this.tileset);
+        if (layer) {
+            layer.setVisible(false);
+        }
     }
 
     initPlayerPos() {
@@ -37,6 +48,24 @@ export default class Map {
         let posY = GameConfig.CELL_SIZE + coll * GameConfig.CELL_SIZE;
         let tile = this.tilemap.getTileAtWorldXY(posX, posY, false, this.scene.cameras.main, 'blocks');
         return tile === undefined || tile === null;
+    }
+
+    checkIfHaveResource(coll, row) {
+        let posX = GameConfig.CELL_SIZE + row * GameConfig.CELL_SIZE;
+        let posY = GameConfig.CELL_SIZE + coll * GameConfig.CELL_SIZE;
+        var tile = this.tilemap.getTileAtWorldXY(posX, posY, false, this.scene.cameras.main, 'golds');
+        if (tile != undefined && tile != null) {
+            return GameConfig.GOLD_ID;
+        }
+        tile = this.tilemap.getTileAtWorldXY(posX, posY, false, this.scene.cameras.main, 'food');
+        if (tile != undefined && tile != null) {
+            return GameConfig.GRIB_ID;
+        }
+        tile = this.tilemap.getTileAtWorldXY(posX, posY, false, this.scene.cameras.main, 'chest');
+        if (tile != undefined && tile != null) {
+            return GameConfig.CHEST_ID;
+        }
+        return undefined;
     }
 
     getExit() {

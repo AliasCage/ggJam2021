@@ -121,9 +121,6 @@ export default class GameScene extends Phaser.Scene {
     }
 
     gemSelect(pointer) {
-        console.log(pointer);
-        console.log(this.player.hero)
-
         if (this.canPick) {
             let row = Math.floor((pointer.worldY / GameConfig.CELL_SIZE)) - 1;
             let col = Math.floor((pointer.worldX / GameConfig.CELL_SIZE)) - 1;

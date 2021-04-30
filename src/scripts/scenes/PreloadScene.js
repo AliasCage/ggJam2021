@@ -28,6 +28,10 @@ import windSound from "../../assets/sounds/wind.mp3";
 
 import lvl1Json from '../../assets/lvl_1.json';
 import lvl2Json from '../../assets/lvl_2.json';
+import lvl3Json from '../../assets/lvl_3.json';
+import lvl4Json from '../../assets/lvl_4.json';
+import lvl5Json from '../../assets/lvl_5.json';
+import lvl10Json from '../../assets/lvl_10.json';
 
 
 export default class PreloadScene extends Phaser.Scene {
@@ -52,6 +56,10 @@ export default class PreloadScene extends Phaser.Scene {
         this.load.spritesheet('dialog', dialogPng, {frameWidth: 699, frameHeight: 324});
         this.load.tilemapTiledJSON('lvl_1', lvl1Json);
         this.load.tilemapTiledJSON('lvl_2', lvl2Json);
+        this.load.tilemapTiledJSON('lvl_3', lvl3Json);
+        this.load.tilemapTiledJSON('lvl_4', lvl4Json);
+        this.load.tilemapTiledJSON('lvl_5', lvl5Json);
+        this.load.tilemapTiledJSON('lvl_10', lvl10Json);
 
         this.load.audio('chest', chestSound);
         this.load.audio('dig', digSound);

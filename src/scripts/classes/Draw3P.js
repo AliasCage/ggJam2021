@@ -73,21 +73,34 @@ export default class Draw3P {
     }
 
     getCustomRandValue() {
-        if (this.scene.player.level === 1) {
-            return 0;
-        }
         let randomValue = Math.floor(Math.random() * this.items);
         if (randomValue === GameConfig.EXIT_ID) {
-            randomValue = 0;
+            randomValue = GameConfig.GROUND_ID;
         }
+        let level = this.scene.player.level - 1;
         if (randomValue === GameConfig.GRIB_ID) {
-            if (Math.random() > GameConfig.GRIB_DROP_PERCENT) {
-                randomValue = 0;
+            if (Math.random() > GameConfig.DROP_SRC[level][3]) {
+                randomValue = GameConfig.GROUND_ID;
             }
         }
         if (randomValue === GameConfig.CHEST_ID) {
-            if (Math.random() > GameConfig.CHEST_DROP_PERCENT) {
-                randomValue = 2;
+            if (Math.random() > GameConfig.DROP_SRC[level][4]) {
+                randomValue = GameConfig.GROUND_ID;
+            }
+        }
+        if (randomValue === GameConfig.GOLD_ID) {
+            if (Math.random() > GameConfig.DROP_SRC[level][2]) {
+                randomValue = GameConfig.GROUND_ID;
+            }
+        }
+        if (randomValue === GameConfig.SILVER_ID) {
+            if (Math.random() > GameConfig.DROP_SRC[level][1]) {
+                randomValue = GameConfig.GROUND_ID;
+            }
+        }
+        if (randomValue === GameConfig.GROUND_ID) {
+            if (Math.random() > GameConfig.DROP_SRC[level][0]) {
+                randomValue = GameConfig.SILVER_ID;
             }
         }
 
@@ -108,7 +121,10 @@ export default class Draw3P {
                     randomValue = GameConfig.EXIT_ID;
                     console.log("KrotPos: " + (i + 1) + " " + (j + 1));
                 } else {
-                    randomValue = this.getCustomRandValue();
+                    randomValue = this.scene.map.checkIfHaveResource(i, j);
+                    if (randomValue === undefined) {
+                        randomValue = this.getCustomRandValue();
+                    }
                 }
 
                 this.gameArray[i][j] = {
@@ -152,16 +168,16 @@ export default class Draw3P {
 
     // returns true if the item at (row, column) continues the chain
     continuesChain(row, column) {
-        let lastId = -1;
-
-        if (this.getChainLength() > 1) {
-            lastId = this.getChainValue();
-        }
         let isGrib = this.gameArray[row][column].value === GameConfig.GRIB_ID;
-        if (lastId) {
-            isGrib = isGrib || lastId === GameConfig.GRIB_ID;
-        }
-        return (isGrib || this.getChainLength() < 2 || this.getChainValue() == this.valueAt(row, column)) && !this.isInChain(row, column) && this.areNext(row, column, this.getLastChainItem().row, this.getLastChainItem().column);
+        var chainLength = this.getChainLength();
+        let lastIdIsGrib = chainLength > 1 && this.getChainValueById(chainLength - 1) === GameConfig.GRIB_ID;
+        return (
+                isGrib ||
+                lastIdIsGrib && chainLength < 3 ||
+                lastIdIsGrib && chainLength > 2 && this.getChainValueById(chainLength - 2) == this.valueAt(row, column) ||
+                chainLength < 2 || this.getChainValueById(chainLength - 1) == this.valueAt(row, column)
+            )
+            && !this.isInChain(row, column) && this.areNext(row, column, this.getLastChainItem().row, this.getLastChainItem().column);
     }
 
     // returns true if the item at (row, column) backtracks the chain
@@ -244,6 +260,10 @@ export default class Draw3P {
     // returns the value of items in the chain
     getChainValue() {
         return this.valueAt(this.getNthChainItem(1).row, this.getNthChainItem(1).column)
+    }
+
+    getChainValueById(num) {
+        return this.valueAt(this.getNthChainItem(num).row, this.getNthChainItem(num).column)
     }
 
     // puts the item at (row, column) in the chain
